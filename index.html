@@ -11,24 +11,11 @@ body {
   background: #fdf8f5;
   color: #333;
 }
-.header { 
-  background: linear-gradient(135deg, #6b3e26 0%, #4a2c1a 100%); 
-  padding: 30px 20px; 
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  color: #d4af37;
-}
 .header img { 
-  width: 90px; 
-  height: 90px; 
-  border-radius: 50%; 
-  border: 3px solid #d4af37; 
-  flex-shrink: 0;
-  object-fit: cover;
+  width: 100%; 
+  height: auto;
+  display: block;
 }
-.header-text { font-size: 14px; line-height: 1.8; font-weight: 600; }
-.header-text p { margin: 0; }
 .section { padding: 40px 20px; max-width: 1000px; margin: 0 auto; }
 .section h2 { text-align: center; font-size: 24px; color: #6b3e26; margin-bottom: 25px; }
 .catalogo { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
@@ -50,22 +37,15 @@ body {
 </head>
 <body>
 
-<!-- HEADER NOVO -->
+<!-- HEADER COM A IMAGEM -->
 <div class="header">
-  <img src="fundo_cestas.jpg" alt="Logo D'cestas">
-  <div class="header-text">
-    <p>🧺 Cestas personalizadas</p>
-    <p>🎁 Presentes</p>
-    <p>🌸 Buquê</p>
-    <p>📍 Entregamos em Cidreira e Arredores</p>
-  </div>
+  <img src="header.jpg" alt="D'cestas e presentes">
 </div>
 
 <div class="section">
   <h2>NOSSOS PRODUTOS</h2>
   <div class="catalogo">
     
-    <!-- PRODUTO 1 -->
     <div class="card">
       <img src="wa_image_734350279898184992_0" alt="Cesta Dia dos Pais">
       <div class="info">
@@ -75,7 +55,6 @@ body {
       </div>
     </div>
 
-    <!-- PRODUTO 2 -->
     <div class="card">
       <img src="wa_image_734350279898184992_1" alt="Cesta Dia dos Pais Balão">
       <div class="info">
@@ -85,7 +64,6 @@ body {
       </div>
     </div>
 
-    <!-- PRODUTO 3 -->
     <div class="card">
       <img src="wa_image_734350279898184992_2" alt="Cesta Dia dos Avós">
       <div class="info">
