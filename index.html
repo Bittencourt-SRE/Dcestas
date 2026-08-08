@@ -54,19 +54,75 @@ body {
 .page h2 { color: #6b3e26; text-align: center; font-size: 28px; margin-bottom: 30px; }
 .voltar-btn { background: #6b3e26; color: #fff; padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer; margin-bottom: 20px; font-size: 16px; font-weight: 600; }
 
-/* PRODUTOS */
+/* PRODUTOS - CARD QUE VIRA */
 .produtos { background: #f5e9da; border-radius: 15px; padding: 30px 20px; }
-.catalogo { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; align-items: stretch; }
-.card { background: #fff; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); overflow: hidden; text-align: center; display: flex; flex-direction: column; height: 100%; }
-.card.premium { border: 3px solid #d4af37; position: relative; }
-.card.premium::before { content: "PREMIUM"; position: absolute; top: 10px; right: -30px; background: #d4af37; color: #fff; padding: 5px 40px; font-size: 11px; font-weight: bold; transform: rotate(45deg); z-index: 1; }
-.card img { width: 100%; height: 220px; object-fit: cover; background: #eee; }
-.card.info { padding: 15px; display: flex; flex-direction: column; flex: 1; }
-.card.info h3 { font-size: 16px; color: #333; margin-bottom: 8px; }
-.card.info.descricao { font-size: 13px; color: #666; margin-bottom: 12px; white-space: pre-line; line-height: 1.5; flex: 1; } /* AQUI ENTRA A DESCRIÇÃO E O CARD ESTICA */
+.catalogo { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+
+.card-wrapper { perspective: 1000px; } /* Container 3D */
+.card { 
+  position: relative;
+  width: 100%;
+  height: 420px; /* Altura fixa pra animação ficar boa */
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  cursor: pointer;
+}
+.card.flipped { transform: rotateY(180deg); }
+
+.card-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  overflow: hidden;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.card-back {
+  transform: rotateY(180deg);
+  background: #6b3e26;
+  color: #fff;
+  padding: 20px;
+  justify-content: center;
+}
+
+.card.premium.card-face { border: 3px solid #d4af37; }
+.card.premium::after { 
+  content: "PREMIUM"; 
+  position: absolute; 
+  top: 10px; 
+  right: -30px; 
+  background: #d4af37; 
+  color: #fff; 
+  padding: 5px 40px; 
+  font-size: 11px; 
+  font-weight: bold; 
+  transform: rotate(45deg); 
+  z-index: 10;
+  pointer-events: none;
+}
+
+.card-front img { width: 100%; height: 220px; object-fit: cover; background: #eee; }
+.card-front.info { padding: 15px; display: flex; flex-direction: column; flex: 1; }
+.card-front h3 { font-size: 16px; color: #333; margin-bottom: 8px; }
 .preco { font-weight:bold; color:#2a9d8f; font-size:22px; margin-bottom:10px; margin-top: auto; }
-.btn-pedir { background: #25D366; color: #fff; padding: 12px 20px; border-radius: 10px; text-decoration: none; font-weight: bold; display: inline-block; width: 90%; cursor: pointer; border: none; }
+.btn-pedir { background: #25D366; color: #fff; padding: 12px 20px; border-radius: 10px; text-decoration: none; font-weight: bold; display: inline-block; width: 90%; cursor: pointer; border: none; margin: 0 auto; }
 .btn-pedir:hover { background: #1ebe57; }
+
+.card-back h3 { font-size: 18px; margin-bottom: 15px; color: #f5e9da; }
+.card-back.descricao { 
+  font-size: 14px; 
+  line-height: 1.8; 
+  white-space: pre-line; 
+  text-align: left;
+  overflow-y: auto;
+}
+.card-back.dica { font-size: 11px; margin-top: 15px; opacity: 0.7; }
 
 /* SOBRE */
 .sobre { background: #fff; text-align: center; border-radius: 15px; padding: 30px 20px; }
@@ -79,7 +135,7 @@ body {
 </head>
 <body>
 
-<!-- MENU LATERAL - VAI SER GERADO PELO JS -->
+<!-- MENU LATERAL -->
 <div class="sidebar" id="sidebar">
   <button class="close-btn" onclick="toggleMenu()">×</button>
   <div id="menu-itens"></div>
@@ -112,7 +168,7 @@ body {
   </div>
 </div>
 
-<!-- AQUI VAI ENTRAR AS PAGINAS DINAMICAS DAS CATEGORIAS -->
+<!-- PAGINAS DINAMICAS -->
 <div id="paginas-dinamicas"></div>
 
 <!-- SOBRE -->
@@ -160,14 +216,26 @@ function criarCard(produto, isPremium = false) {
   const img = converterLinkDrive(produto['Link da imagem']);
   const btn = gerarBotaoWhats(produto['Nome']);
   const preco = formatarPreco(produto['Valor']);
+  const descricao = produto['Descricao'] || "Sem descrição";
+  
   return `
-    <div class="card ${isPremium? 'premium' : ''}">
-      <img src="${img}" alt="${produto['Nome']}" onerror="this.src='https://via.placeholder.com/260x220?text=Sem+Imagem'">
-      <div class="info">
-        <h3>${produto['Nome']}</h3>
-        <p class="descricao">${produto['Descricao']}</p>
-        <p class="preco">R$ ${preco}</p>
-        <a href="${btn}" target="_blank" class="btn-pedir">Pedir no WhatsApp</a>
+    <div class="card-wrapper">
+      <div class="card ${isPremium? 'premium' : ''}" onclick="this.classList.toggle('flipped')">
+        <!-- FRENTE -->
+        <div class="card-face card-front">
+          <img src="${img}" alt="${produto['Nome']}" onerror="this.src='https://via.placeholder.com/260x220?text=Sem+Imagem'">
+          <div class="info">
+            <h3>${produto['Nome']}</h3>
+            <p class="preco">R$ ${preco}</p>
+            <a href="${btn}" target="_blank" class="btn-pedir" onclick="event.stopPropagation()">Pedir no WhatsApp</a>
+          </div>
+        </div>
+        <!-- VERSO -->
+        <div class="card-face card-back">
+          <h3>O que vem na cesta</h3>
+          <div class="descricao">${descricao}</div>
+          <p class="dica">Toque novamente para voltar</p>
+        </div>
       </div>
     </div>
   `;
