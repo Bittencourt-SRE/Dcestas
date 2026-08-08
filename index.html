@@ -5,19 +5,80 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>D'cestas e Presentes - Cidreira</title>
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
+* { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
 body { 
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial; 
   background: #fdf8f5;
   color: #333;
 }
+.header { position: relative; }
 .header img { 
   width: 100%; 
   height: auto;
   display: block;
 }
+
+/* MENU HAMBURGER IGUAL PH */
+#menu-btn {
+  position: absolute;
+  top: 25px;
+  left: 25px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 100;
+}
+#menu-btn div {
+  width: 30px;
+  height: 4px;
+  background: #fff;
+  margin: 6px 0;
+  border-radius: 2px;
+  transition: 0.3s;
+}
+#menu {
+  position: fixed;
+  top: 0;
+  left: -280px;
+  width: 280px;
+  height: 100%;
+  background: #6b3e26;
+  padding-top: 100px;
+  transition: 0.3s;
+  z-index: 99;
+  box-shadow: 2px 0 10px rgba(0,0,0,0.3);
+}
+#menu.active { left: 0; }
+#menu a {
+  display: block;
+  color: #fff;
+  padding: 18px 30px;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+#menu a:hover { background: #8a5030; padding-left: 35px; }
+
+/* OVERLAY QUANDO MENU ABRE */
+#overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: none;
+  z-index: 98;
+}
+#overlay.active { display: block; }
+
 .section { padding: 40px 20px; max-width: 1000px; margin: 0 auto; }
 .section h2 { text-align: center; font-size: 24px; color: #6b3e26; margin-bottom: 25px; }
+
+/* FUNDO CREME NA SEÇÃO PRODUTOS */
+.produtos { background: #f5e9da; }
+
 .catalogo { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
 .card { background: #fff; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); overflow: hidden; text-align: center; }
 .card img { width: 100%; height: 220px; object-fit: cover; }
@@ -37,18 +98,31 @@ body {
 </head>
 <body>
 
-<!-- HEADER COM A NOVA IMAGEM -->
+<!-- HEADER NOVO -->
 <div class="header">
-  <img src="header_dccestas.jpg" alt="D'cestas e presentes">
+  <img src="header_final_dccestas.jpg" alt="D'cestas e presentes">
+  <button id="menu-btn" onclick="toggleMenu()">
+    <div></div><div></div><div></div>
+  </button>
 </div>
 
-<div class="section">
+<!-- MENU LATERAL IGUAL PH -->
+<div id="menu">
+  <a href="#buques" onclick="toggleMenu()">Buquês</a>
+  <a href="#cestas" onclick="toggleMenu()">Cestas</a>
+  <a href="#presentes" onclick="toggleMenu()">Presentes</a>
+  <a href="#sobre" onclick="toggleMenu()">Sobre Nós</a>
+  <a href="https://wa.me/5551997215808" target="_blank">Contato</a>
+</div>
+<div id="overlay" onclick="toggleMenu()"></div>
+
+<!-- SEÇÃO PRODUTOS COM FUNDO CREME -->
+<div class="section produtos" id="produtos">
   <h2>NOSSOS PRODUTOS</h2>
-  <div class="catalogo">
+  <div class="catalogo" id="buques">
     
-    <!-- PRODUTO 1 -->
     <div class="card">
-      <img src="wa_image_734350279898184992_0" alt="Cesta Dia dos Pais">
+      <img src="wa_image_734350279898184992_0.jpg" alt="Cesta Dia dos Pais">
       <div class="info">
         <h3>Cesta Dia dos Pais - Caneca</h3>
         <p>Cesta com guloseimas, caneca personalizada "Pai" e balão. Perfeito pra presentear!</p>
@@ -56,9 +130,8 @@ body {
       </div>
     </div>
 
-    <!-- PRODUTO 2 -->
-    <div class="card">
-      <img src="wa_image_734350279898184992_1" alt="Cesta Dia dos Pais Balão">
+    <div class="card" id="cestas">
+      <img src="wa_image_734350279898184992_1.jpg" alt="Cesta Dia dos Pais Balão">
       <div class="info">
         <h3>Cesta Dia dos Pais - Balão PAI</h3>
         <p>Cesta decorada com balão "PAI", chocolates e bebidas. Um presente que emociona.</p>
@@ -66,9 +139,8 @@ body {
       </div>
     </div>
 
-    <!-- PRODUTO 3 -->
-    <div class="card">
-      <img src="wa_image_734350279898184992_2" alt="Cesta Dia dos Avós">
+    <div class="card" id="presentes">
+      <img src="wa_image_734350279898184992_2.jpg" alt="Cesta Dia dos Avós">
       <div class="info">
         <h3>Cesta Dia dos Avós</h3>
         <p>Cesta carinho com guloseimas, caneca e balão "Feliz dia dos Avós". Entrega com amor.</p>
@@ -79,7 +151,7 @@ body {
   </div>
 </div>
 
-<div class="section sobre">
+<div class="section sobre" id="sobre">
   <h2>SOBRE NÓS</h2>
   <p>Somos a D'cestas e presentes de Cidreira e região. Trabalhamos com cestas personalizadas para todas as datas: Dia dos Pais, Dia das Mães, Namorados, Aniversários e Cacau Show. Entregamos com muito carinho e capricho 💛</p>
 </div>
@@ -92,6 +164,13 @@ body {
 <div class="rodape">
   Desenvolvido por <a href="https://wa.me/5551985108885?text=Fala%20Bittencourt%2C%20Curti%20tua%20Landing%20Page%20da%20D%27cestas%21" target="_blank">Edmilson Bittencourt</a>
 </div>
+
+<script>
+function toggleMenu() {
+  document.getElementById('menu').classList.toggle('active');
+  document.getElementById('overlay').classList.toggle('active');
+}
+</script>
 
 </body>
 </html>
