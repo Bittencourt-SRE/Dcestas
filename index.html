@@ -63,7 +63,7 @@ body {
 .card img { width: 100%; height: 220px; object-fit: cover; background: #eee; }
 .card.info { padding: 15px; }
 .card.info h3 { font-size: 16px; color: #333; margin-bottom: 8px; }
-.card.info p { font-size: 13px; color: #666; margin-bottom: 12px; min-height: 35px; white-space: pre-line; }
+.card.info p { font-size: 13px; color: #666; margin-bottom: 12px; min-height: 35px; } /* VOLTEI COMO TAVA ANTES - SEM white-space */
 .preco { font-weight:bold; color:#2a9d8f; font-size:22px; margin-bottom:10px; }
 .btn-pedir { background: #25D366; color: #fff; padding: 12px 20px; border-radius: 10px; text-decoration: none; font-weight: bold; display: inline-block; width: 90%; cursor: pointer; border: none; }
 .btn-pedir:hover { background: #1ebe57; }
@@ -185,27 +185,19 @@ function criarPaginaCategoria(categoria) {
 }
 
 function gerarMenuECategorias(dados) {
-  // Pega todas categorias únicas da planilha
   todasCategorias = [...new Set(dados.map(p => p['Categoria']).filter(c => c && c.toLowerCase()!== 'premium'))];
-
-  // Gera os links do menu
   const menuHtml = todasCategorias.map(cat => {
     const id = cat.toLowerCase().replace(/\s+/g, '-');
     return `<a href="#" onclick="showPage('${id}')">${cat}</a>`;
   }).join('');
   document.getElementById('menu-itens').innerHTML = `<a href="#" onclick="showPage('home')">Destaques</a>` + menuHtml;
-
-  // Gera as páginas de cada categoria
   const paginasHtml = todasCategorias.map(cat => criarPaginaCategoria(cat)).join('');
   document.getElementById('paginas-dinamicas').innerHTML = paginasHtml;
 }
 
 function preencherProdutos(dados) {
-  // Premium na home
   const premium = dados.filter(p => p['Categoria']?.toLowerCase() === 'premium');
   document.getElementById('catalogo-home').innerHTML = premium.map(p => criarCard(p, true)).join('') || '<p>Nenhum produto Premium cadastrado</p>';
-
-  // Produtos de cada categoria
   todasCategorias.forEach(cat => {
     const id = cat.toLowerCase().replace(/\s+/g, '-');
     const produtosDaCat = dados.filter(p => p['Categoria']?.toLowerCase() === cat.toLowerCase());
@@ -228,10 +220,8 @@ async function carregarProdutos() {
       cabecalho.forEach((chave, i) => obj[chave.trim()] = colunas[i]?.trim());
       return obj;
     }).filter(p => p['Nome']);
-
     gerarMenuECategorias(dados);
     preencherProdutos(dados);
-
   } catch(e) {
     console.error(e);
     document.querySelectorAll('.catalogo').forEach(c => c.innerHTML = '<p>Erro ao carregar. Verifica se a planilha está publicada.</p>');
