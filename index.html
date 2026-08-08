@@ -56,16 +56,15 @@ body {
 
 /* PRODUTOS */
 .produtos { background: #f5e9da; border-radius: 15px; padding: 30px 20px; }
-.catalogo { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
-.card { background: #fff; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); overflow: hidden; text-align: center; display: flex; flex-direction: column; } /* flex pra crescer junto */
+.catalogo { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; align-items: stretch; } /* align stretch pra card ter mesma altura */
+.card { background: #fff; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); overflow: hidden; text-align: center; display: flex; flex-direction: column; height: 100%; } /* flex pra crescer */
 .card.premium { border: 3px solid #d4af37; position: relative; }
 .card.premium::before { content: "PREMIUM"; position: absolute; top: 10px; right: -30px; background: #d4af37; color: #fff; padding: 5px 40px; font-size: 11px; font-weight: bold; transform: rotate(45deg); z-index: 1; }
 .card img { width: 100%; height: 220px; object-fit: cover; background: #eee; }
-.card.info { padding: 15px; flex: 1; display: flex; flex-direction: column; } /* flex aqui também */
+.card.info { padding: 15px; display: flex; flex-direction: column; flex: 1; } /* flex 1 pra ocupar espaço */
 .card.info h3 { font-size: 16px; color: #333; margin-bottom: 8px; }
-.card.info p { font-size: 13px; color: #666; margin-bottom: 12px; line-height: 1.4; } /* TIREI O MIN-HEIGHT */
-.card.info.descricao { flex: 1; } /* A descrição ocupa o espaço do meio */
-.preco { font-weight:bold; color:#2a9d8f; font-size:22px; margin-bottom:10px; margin-top: auto; } /* preço sempre embaixo */
+.card.info.descricao { font-size: 13px; color: #666; margin-bottom: 12px; white-space: pre-line; line-height: 1.5; flex: 1; } /* AQUI: quebra linha + cresce */
+.preco { font-weight:bold; color:#2a9d8f; font-size:22px; margin-bottom:10px; margin-top: auto; } /* preço sempre no fim */
 .btn-pedir { background: #25D366; color: #fff; padding: 12px 20px; border-radius: 10px; text-decoration: none; font-weight: bold; display: inline-block; width: 90%; cursor: pointer; border: none; }
 .btn-pedir:hover { background: #1ebe57; }
 
@@ -166,7 +165,7 @@ function criarCard(produto, isPremium = false) {
       <img src="${img}" alt="${produto['Nome']}" onerror="this.src='https://via.placeholder.com/260x220?text=Sem+Imagem'">
       <div class="info">
         <h3>${produto['Nome']}</h3>
-        <p class="descricao">${produto['Descricao']}</p> <!-- CLASSE NOVA PRA TRAVAR -->
+        <p class="descricao">${produto['Descricao']}</p>
         <p class="preco">R$ ${preco}</p>
         <a href="${btn}" target="_blank" class="btn-pedir">Pedir no WhatsApp</a>
       </div>
