@@ -35,11 +35,11 @@ body {
 .card { background: #fff; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); overflow: hidden; text-align: center; }
 .card.premium { border: 3px solid #d4af37; position: relative; }
 .card.premium::before { content: "PREMIUM"; position: absolute; top: 10px; right: -30px; background: #d4af37; color: #fff; padding: 5px 40px; font-size: 11px; font-weight: bold; transform: rotate(45deg); z-index: 1; }
-.card img { width: 100%; height: 220px; object-fit: cover; }
+.card img { width: 100%; height: 220px; object-fit: cover; background: #eee; }
 .card.info { padding: 15px; }
 .card.info h3 { font-size: 16px; color: #333; margin-bottom: 8px; }
 .card.info p { font-size: 13px; color: #666; margin-bottom: 12px; min-height: 35px; }
-.preco { font-weight:bold; color:#c1121f; font-size:18px; margin-bottom:10px; }
+.preco { font-weight:bold; color:#2a9d8f; font-size:22px; margin-bottom:10px; } /* VERDE */
 .btn-pedir { background: #25D366; color: #fff; padding: 12px 20px; border-radius: 10px; text-decoration: none; font-weight: bold; display: inline-block; width: 90%; cursor: pointer; border: none; }
 .btn-pedir:hover { background: #1ebe57; }
 
@@ -138,13 +138,24 @@ body {
 const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTLU-825Dgbnj7DJzmr_isSjfhiyNQWZBnGCnD397_QC88666XobkPP_-ls4tnWQjjb1aIzn8kY1Pax/pub?output=csv";
 const NUMERO_WHATSAPP = "5551997215808";
 
+// CORREÇÃO 1: Link do Drive que funciona em site
 function converterLinkDrive(link) {
   if(!link) return "";
+  link = link.replace(/"/g, '').trim();
   const match = link.match(/\/d\/([a-zA-Z0-9-_]+)/);
   if (match && match[1]) {
-    return `https://drive.google.com/uc?export=view&id=${match[1]}`;
+    return `https://drive.google.com/thumbnail?id=${match[1]}&sz=w1000`;
   }
   return link;
+}
+
+// CORREÇÃO 2: Formata preço R$ 199,90 em verde
+function formatarPreco(valor) {
+  if(!valor) return "0,00";
+  valor = valor.replace(/"/g, '').replace(',', '.').trim();
+  const num = parseFloat(valor);
+  if(isNaN(num)) return valor;
+  return num.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2});
 }
 
 function gerarBotaoWhats(nome) {
@@ -155,13 +166,14 @@ function gerarBotaoWhats(nome) {
 function criarCard(produto, isPremium = false) {
   const img = converterLinkDrive(produto['Link da imagem']);
   const btn = gerarBotaoWhats(produto['Nome']);
+  const preco = formatarPreco(produto['Valor']);
   return `
     <div class="card ${isPremium? 'premium' : ''}">
-      <img src="${img}" alt="${produto['Nome']}">
+      <img src="${img}" alt="${produto['Nome']}" onerror="this.src='https://via.placeholder.com/260x220?text=Sem+Imagem'">
       <div class="info">
         <h3>${produto['Nome']}</h3>
         <p>${produto['Descricao']}</p>
-        <p class="preco">R$ ${produto['Valor']}</p>
+        <p class="preco">R$ ${preco}</p>
         <a href="${btn}" target="_blank" class="btn-pedir">Pedir no WhatsApp</a>
       </div>
     </div>
@@ -181,7 +193,7 @@ async function carregarProdutos() {
       return obj;
     }).filter(p => p['Nome']);
 
-    // PREMIUM = Categoria Premium
+    // FILTRA PREMIUM
     const premium = dados.filter(p => p['Categoria']?.toLowerCase() === 'premium');
     document.getElementById('catalogo-home').innerHTML = premium.map(p => criarCard(p, true)).join('') || '<p>Nenhum produto Premium cadastrado</p>';
 
@@ -196,13 +208,11 @@ async function carregarProdutos() {
 
   } catch(e) {
     console.error(e);
-    document.querySelectorAll('.catalogo').forEach(c => c.innerHTML = '<p>Erro ao carregar produtos. Verifica se a planilha está pública.</p>');
+    document.querySelectorAll('.catalogo').forEach(c => c.innerHTML = '<p>Erro ao carregar. Verifica se a planilha está publicada.</p>');
   }
 }
 
-function toggleMenu() {
-  document.getElementById('sidebar').classList.toggle('active');
-}
+function toggleMenu() { document.getElementById('sidebar').classList.toggle('active'); }
 function showPage(pageId) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById(pageId).classList.add('active');
