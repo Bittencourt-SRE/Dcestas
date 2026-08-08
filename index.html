@@ -35,28 +35,33 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial; backgr
 .produtos { background: #f5e9da; border-radius: 15px; padding: 30px 20px; }
 .catalogo { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
 
-/* CARD QUE VIRA - AJUSTADO */
+/* CARD QUE VIRA - SÓ MUDEI AQUI */
 .card-wrapper { perspective: 1000px; position: relative; }
 .card {
   position: relative; width: 100%; height: auto;
-  min-height: 430px;
   transition: transform 0.6s; transform-style: preserve-3d; cursor: pointer;
 }
 .card.flipped { transform: rotateY(180deg); }
 
 .card-face {
-  position: absolute; width: 100%; height: 100%; backface-visibility: hidden;
+  position: relative;
+  width: 100%; 
+  backface-visibility: hidden;
   border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
   overflow: hidden; background: #fff; display: flex; flex-direction: column; text-align: center;
-  justify-content: space-between;
 }
 .card-back {
+  position: absolute;
+  top: 0; left: 0;
+  height: 100%;
   transform: rotateY(180deg);
   background: #5d2f1a;
   color: #fff;
   padding: 25px 20px;
   border-radius: 15px;
   justify-content: center;
+  display: flex;
+  flex-direction: column;
 }
 
 .card.premium.card-front { border: 3px solid #d4af37; }
@@ -66,18 +71,18 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial; backgr
   z-index: 10; pointer-events: none; box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
-.card-front img { width: 100%; height: 220px; object-fit: cover; background: #eee; flex-shrink: 0; }
+.card-front img { width: 100%; height: 220px; object-fit: cover; background: #eee; display: block; }
 .card-front.info {
-  padding: 18px 15px;
+  padding: 16px 15px 20px 15px; /* 16px em cima, 20px embaixo. Proporcional */
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  justify-content: center;
-  flex: 1;
+  gap: 10px; /* Espaço igual entre nome, preço e botão. Nem colado nem longe */
+  align-items: center;
+  justify-content: center; /* Centraliza o bloco no meio do espaço */
 }
 .card-front h3 { font-size: 17px; color: #333; font-weight: 700; margin: 0; }
 .preco { font-weight:bold; color:#2a9d8f; font-size:24px; margin: 0; }
-.btn-pedir { background: #25D366; color: #fff; padding: 14px 20px; border-radius: 12px; text-decoration: none; font-weight: bold; width: 90%; margin: 5px auto 0; display: block; font-size: 16px; }
+.btn-pedir { background: #25D366; color: #fff; padding: 14px 20px; border-radius: 12px; text-decoration: none; font-weight: bold; width: 90%; margin: 0 auto; display: block; font-size: 16px; }
 
 .card-back h3 { font-size: 20px; margin-bottom: 15px; color: #fff; font-weight: 700; }
 .card-back.descricao {
@@ -86,6 +91,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial; backgr
   white-space: pre-line;
   text-align: center;
   overflow-y: auto;
+  flex: 1;
 }
 .card-back.dica { font-size: 12px; margin-top: 15px; opacity: 0.8; font-style: italic; }
 
