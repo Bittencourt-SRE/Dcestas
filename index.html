@@ -73,12 +73,12 @@ body {
 }
 #overlay.active { display: block; }
 
-/* ESPAÇAMENTO PRA NÃO FICAR ATRÁS DO HEADER AO ROLAR */
+/* ESPAÇAMENTO PRA ANCORA */
 .section { 
   padding: 40px 20px; 
   max-width: 1000px; 
   margin: 0 auto; 
-  scroll-margin-top: 80px; /* importante pra ancora não ficar atrás */
+  scroll-margin-top: 20px;
 }
 .section h2 { text-align: center; font-size: 26px; color: #6b3e26; margin-bottom: 30px; }
 
@@ -140,9 +140,9 @@ body {
 </div>
 <div id="overlay" onclick="toggleMenu()"></div>
 
-<!-- SEÇÃO 1: DESTAQUES - PRA VENDER OS MAIS PEDIDOS/PREMIUM -->
+<!-- APENAS ESSA SEÇÃO APARECE QUANDO ABRE O SITE -->
 <div class="section produtos" id="destaques">
-  <h2>🌟 DESTAQUES DA SEMANA</h2>
+  <h2>🌟 DESTAQUES PREMIUM</h2>
   <div class="catalogo">
     <div class="card premium">
       <span class="badge">PREMIUM</span>
@@ -154,18 +154,19 @@ body {
       </div>
     </div>
 
-    <div class="card">
+    <div class="card premium">
+      <span class="badge">PREMIUM</span>
       <img src="wa_image_734350279898184992_1.jpg" alt="Cesta Oferta">
       <div class="info">
-        <h3>Cesta Dia dos Pais - Oferta</h3>
-        <p>Cesta completa com guloseimas e caneca personalizada.</p>
-        <a href="https://wa.me/5551997215808?text=Ol%C3%A1%20D%27cestas%21%20Quero%20or%C3%A7ar%20a%20Cesta%20Oferta" target="_blank" class="btn-pedir">Pedir no WhatsApp</a>
+        <h3>Cesta Corporativa VIP</h3>
+        <p>Ideal para empresas. Vem em caixa de madeira com 8 itens gourmet.</p>
+        <a href="https://wa.me/5551997215808?text=Ol%C3%A1%20D%27cestas%21%20Quero%20or%C3%A7ar%20a%20Cesta%20Corporativa" target="_blank" class="btn-pedir">Pedir no WhatsApp</a>
       </div>
     </div>
   </div>
 </div>
 
-<!-- SEÇÃO 2: GALERIA DE BUQUÊS -->
+<!-- GALERIA 1: SÓ APARECE QUANDO CLICAR NO MENU -->
 <div class="section produtos" id="buques">
   <h2>BUQUÊS</h2>
   <div class="catalogo">
@@ -188,7 +189,7 @@ body {
   </div>
 </div>
 
-<!-- SEÇÃO 3: GALERIA DE CESTAS -->
+<!-- GALERIA 2: SÓ APARECE QUANDO CLICAR NO MENU -->
 <div class="section produtos" id="cestas">
   <h2>CESTAS</h2>
   <div class="catalogo">
@@ -211,7 +212,7 @@ body {
   </div>
 </div>
 
-<!-- SEÇÃO 4: GALERIA DE PRESENTES -->
+<!-- GALERIA 3: SÓ APARECE QUANDO CLICAR NO MENU -->
 <div class="section produtos" id="presentes">
   <h2>PRESENTES</h2>
   <div class="catalogo">
