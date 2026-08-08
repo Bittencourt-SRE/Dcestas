@@ -42,7 +42,7 @@ body {
 .btn-icone-whatsapp { background: #25D366; }
 .btn-icone-instagram { background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); }
 
-.sidebar { position: fixed; top: 0; left: -280px; width: 280px; height: 100%; background: #6b3e26; transition: 0.3s; padding-top: 100px; z-index: 99; box-shadow: 2px 0 10px rgba(0,0,0,0.5); }
+.sidebar { position: fixed; top: 0; left: -280px; width: 280px; height: 100%; background: #6b3e26; transition: 0.3s; padding-top: 100px; z-index: 99; box-shadow: 2px 0 10px rgba(0,0,0,0.5); overflow-y: auto; }
 .sidebar.active { left: 0; }
 .sidebar a { display: block; padding: 18px 30px; color: #fff; text-decoration: none; font-size: 18px; font-weight: 600; border-bottom: 1px solid rgba(255,255,255,0.1); }
 .sidebar a:hover { background: #8a5030; padding-left: 35px; }
@@ -63,7 +63,7 @@ body {
 .card img { width: 100%; height: 220px; object-fit: cover; background: #eee; }
 .card.info { padding: 15px; }
 .card.info h3 { font-size: 16px; color: #333; margin-bottom: 8px; }
-.card.info p { font-size: 13px; color: #666; margin-bottom: 12px; min-height: 35px; }
+.card.info p { font-size: 13px; color: #666; margin-bottom: 12px; min-height: 35px; white-space: pre-line; }
 .preco { font-weight:bold; color:#2a9d8f; font-size:22px; margin-bottom:10px; }
 .btn-pedir { background: #25D366; color: #fff; padding: 12px 20px; border-radius: 10px; text-decoration: none; font-weight: bold; display: inline-block; width: 90%; cursor: pointer; border: none; }
 .btn-pedir:hover { background: #1ebe57; }
@@ -72,10 +72,6 @@ body {
 .sobre { background: #fff; text-align: center; border-radius: 15px; padding: 30px 20px; }
 .sobre p { max-width: 600px; margin: 0 auto; line-height: 1.6; color: #555; }
 
-/* REMOVIDO BOTÕES FIXOS DO CANTO INFERIOR */
-
-/* BOTÕES FIXOS REMOVIDOS */
-
 .rodape { background: #222; color: #aaa; text-align: center; padding: 20px; font-size: 12px; }
 .rodape a { color: #25D366; font-weight: 600; text-decoration: none; }
 .loading { text-align: center; color: #6b3e26; font-size: 18px; padding: 40px; }
@@ -83,13 +79,10 @@ body {
 </head>
 <body>
 
-<!-- MENU LATERAL -->
+<!-- MENU LATERAL - VAI SER GERADO PELO JS -->
 <div class="sidebar" id="sidebar">
   <button class="close-btn" onclick="toggleMenu()">×</button>
-  <a href="#" onclick="showPage('home')">Destaques</a>
-  <a href="#" onclick="showPage('buques')">Buquês</a>
-  <a href="#" onclick="showPage('cestas')">Cestas</a>
-  <a href="#" onclick="showPage('presentes')">Presentes</a>
+  <div id="menu-itens"></div>
   <a href="#" onclick="showPage('sobre')">Sobre Nós</a>
   <a href="https://wa.me/5551997215808?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20desejo%20fazer%20um%20pedido%20personalizado%21" target="_blank">Monte seu pedido</a>
 </div>
@@ -101,7 +94,6 @@ body {
     <div></div><div></div><div></div>
   </button>
 
-  <!-- BOTÕES ÍCONE NO TOPO DIREITO -->
   <div class="botoes-topo">
     <a href="https://wa.me/5551997215808?text=Ol%C3%A1%2C%20vim%20pelo%20site%2C%20desejo%20de%20ser%20atendido%28a%29%20por%20aqui." target="_blank" class="btn-icone btn-icone-whatsapp" title="WhatsApp">
       <svg width="22" height="22" viewBox="0 0 32 32" fill="white"><path d="M16 2C8.268 2 2 8.268 2 16c0 2.666.736 5.162 2.015 7.29L2 30l6.89-1.806A14.005 14.005 0 0 0 16 30c7.732 0 14-6.268 14-14S23.732 2 16 2zm0 25.714c-2.274 0-4.474-.61-6.41-1.765l-.46-.275-4.086 1.07 1.093-3.975-.3-.484A11.432 11.432 0 0 1 4.286 16c0-6.45 5.264-11.714 11.714-11.714S27.714 9.55 27.714 16 22.45 27.714 16 27.714zm6.5-8.688c-.356-.178-2.1-1.036-2.425-1.154-.325-.118-.562-.178-.8.178-.237.356-.92 1.154-1.128 1.39-.208.237-.416.267-.772.089-.356-.178-1.5-.553-2.858-1.764-1.057-.942-1.77-2.107-1.978-2.463-.208-.356-.022-.55.156-.727.16-.16.356-.416.534-.623.178-.208.237-.356.356-.593.118-.237.06-.444-.03-.623-.09-.178-.8-1.926-1.095-2.64-.288-.692-.58-.597-.8-.608-.208-.01-.447-.01-.687-.01-.237 0-.623.089-.95.444-.325.356-1.243 1.215-1.243 2.965s1.273 3.44 1.45 3.68c.178.237 2.506 3.826 6.07 5.37.85.367 1.513.587 2.03.75.853.27 1.63.232 2.244.14.685-.102 2.1-.858 2.396-1.687.296-.828.296-1.538.207-1.687-.09-.148-.325-.237-.68-.415z"/></svg>
@@ -120,26 +112,8 @@ body {
   </div>
 </div>
 
-<!-- BUQUÊS -->
-<div id="buques" class="page">
-  <button class="voltar-btn" onclick="showPage('home')">← Voltar</button>
-  <h2>BUQUÊS</h2>
-  <div id="catalogo-buques" class="catalogo"><div class="loading">Carregando...</div></div>
-</div>
-
-<!-- CESTAS -->
-<div id="cestas" class="page">
-  <button class="voltar-btn" onclick="showPage('home')">← Voltar</button>
-  <h2>CESTAS</h2>
-  <div id="catalogo-cestas" class="catalogo"><div class="loading">Carregando...</div></div>
-</div>
-
-<!-- PRESENTES -->
-<div id="presentes" class="page">
-  <button class="voltar-btn" onclick="showPage('home')">← Voltar</button>
-  <h2>PRESENTES</h2>
-  <div id="catalogo-presentes" class="catalogo"><div class="loading">Carregando...</div></div>
-</div>
+<!-- AQUI VAI ENTRAR AS PAGINAS DINAMICAS DAS CATEGORIAS -->
+<div id="paginas-dinamicas"></div>
 
 <!-- SOBRE -->
 <div id="sobre" class="page">
@@ -157,6 +131,7 @@ body {
 <script>
 const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTLU-825Dgbnj7DJzmr_isSjfhiyNQWZBnGCnD397_QC88666XobkPP_-ls4tnWQjjb1aIzn8kY1Pax/pub?output=csv";
 const NUMERO_WHATSAPP = "5551997215808";
+let todasCategorias = [];
 
 function converterLinkDrive(link) {
   if(!link) return "";
@@ -198,6 +173,49 @@ function criarCard(produto, isPremium = false) {
   `;
 }
 
+function criarPaginaCategoria(categoria) {
+  const id = categoria.toLowerCase().replace(/\s+/g, '-');
+  return `
+  <div id="${id}" class="page">
+    <button class="voltar-btn" onclick="showPage('home')">← Voltar</button>
+    <h2>${categoria.toUpperCase()}</h2>
+    <div id="catalogo-${id}" class="catalogo"><div class="loading">Carregando...</div></div>
+  </div>
+  `;
+}
+
+function gerarMenuECategorias(dados) {
+  // Pega todas categorias únicas da planilha
+  todasCategorias = [...new Set(dados.map(p => p['Categoria']).filter(c => c && c.toLowerCase()!== 'premium'))];
+
+  // Gera os links do menu
+  const menuHtml = todasCategorias.map(cat => {
+    const id = cat.toLowerCase().replace(/\s+/g, '-');
+    return `<a href="#" onclick="showPage('${id}')">${cat}</a>`;
+  }).join('');
+  document.getElementById('menu-itens').innerHTML = `<a href="#" onclick="showPage('home')">Destaques</a>` + menuHtml;
+
+  // Gera as páginas de cada categoria
+  const paginasHtml = todasCategorias.map(cat => criarPaginaCategoria(cat)).join('');
+  document.getElementById('paginas-dinamicas').innerHTML = paginasHtml;
+}
+
+function preencherProdutos(dados) {
+  // Premium na home
+  const premium = dados.filter(p => p['Categoria']?.toLowerCase() === 'premium');
+  document.getElementById('catalogo-home').innerHTML = premium.map(p => criarCard(p, true)).join('') || '<p>Nenhum produto Premium cadastrado</p>';
+
+  // Produtos de cada categoria
+  todasCategorias.forEach(cat => {
+    const id = cat.toLowerCase().replace(/\s+/g, '-');
+    const produtosDaCat = dados.filter(p => p['Categoria']?.toLowerCase() === cat.toLowerCase());
+    const container = document.getElementById(`catalogo-${id}`);
+    if(container) {
+      container.innerHTML = produtosDaCat.map(p => criarCard(p)).join('') || `<p>Nenhum produto de ${cat} cadastrado</p>`;
+    }
+  });
+}
+
 async function carregarProdutos() {
   try {
     const res = await fetch(SHEET_CSV_URL);
@@ -211,16 +229,8 @@ async function carregarProdutos() {
       return obj;
     }).filter(p => p['Nome']);
 
-    const premium = dados.filter(p => p['Categoria']?.toLowerCase() === 'premium');
-    document.getElementById('catalogo-home').innerHTML = premium.map(p => criarCard(p, true)).join('') || '<p>Nenhum produto Premium cadastrado</p>';
-
-    const buques = dados.filter(p => p['Categoria']?.toLowerCase() === 'buque');
-    const cestas = dados.filter(p => p['Categoria']?.toLowerCase() === 'cesta');
-    const presentes = dados.filter(p => p['Categoria']?.toLowerCase() === 'presente');
-
-    document.getElementById('catalogo-buques').innerHTML = buques.map(p => criarCard(p)).join('') || '<p>Nenhum buquê cadastrado</p>';
-    document.getElementById('catalogo-cestas').innerHTML = cestas.map(p => criarCard(p)).join('') || '<p>Nenhuma cesta cadastrada</p>';
-    document.getElementById('catalogo-presentes').innerHTML = presentes.map(p => criarCard(p)).join('') || '<p>Nenhum presente cadastrado</p>';
+    gerarMenuECategorias(dados);
+    preencherProdutos(dados);
 
   } catch(e) {
     console.error(e);
