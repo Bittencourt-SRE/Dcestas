@@ -76,8 +76,25 @@ body {
 .section { padding: 40px 20px; max-width: 1000px; margin: 0 auto; }
 .section h2 { text-align: center; font-size: 24px; color: #6b3e26; margin-bottom: 25px; }
 
-/* FUNDO CREME NA SEÇÃO PRODUTOS */
+/* FUNDO CREME NAS SEÇÕES DE PRODUTOS */
 .produtos { background: #f5e9da; }
+
+/* CARD PREMIUM */
+.card.premium {
+  border: 2px solid #d4af37;
+  position: relative;
+}
+.badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #d4af37;
+  color: #fff;
+  padding: 5px 10px;
+  font-size: 11px;
+  font-weight: bold;
+  border-radius: 8px;
+}
 
 .catalogo { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
 .card { background: #fff; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); overflow: hidden; text-align: center; }
@@ -108,6 +125,7 @@ body {
 
 <!-- MENU LATERAL IGUAL PH -->
 <div id="menu">
+  <a href="#destaques" onclick="toggleMenu()">Destaques</a>
   <a href="#buques" onclick="toggleMenu()">Buquês</a>
   <a href="#cestas" onclick="toggleMenu()">Cestas</a>
   <a href="#presentes" onclick="toggleMenu()">Presentes</a>
@@ -116,30 +134,67 @@ body {
 </div>
 <div id="overlay" onclick="toggleMenu()"></div>
 
-<!-- SEÇÃO PRODUTOS COM FUNDO CREME -->
-<div class="section produtos" id="produtos">
-  <h2>NOSSOS PRODUTOS</h2>
-  <div class="catalogo" id="buques">
-    
-    <div class="card">
-      <img src="wa_image_734350279898184992_0.jpg" alt="Cesta Dia dos Pais">
+<!-- NOVA SEÇÃO: DESTAQUES / PROMOÇÕES / PREMIUM -->
+<div class="section produtos" id="destaques">
+  <h2>🌟 DESTAQUES DA SEMANA</h2>
+  <div class="catalogo">
+    <div class="card premium">
+      <span class="badge">PREMIUM</span>
+      <img src="wa_image_734350279898184992_0.jpg" alt="Cesta Premium">
       <div class="info">
-        <h3>Cesta Dia dos Pais - Caneca</h3>
-        <p>Cesta com guloseimas, caneca personalizada "Pai" e balão. Perfeito pra presentear!</p>
-        <a href="https://wa.me/5551997215808?text=Ol%C3%A1%20D%27cestas%21%20Quero%20or%C3%A7ar%20a%20Cesta%20Dia%20dos%20Pais%20-%20Caneca" target="_blank" class="btn-pedir">Pedir no WhatsApp</a>
+        <h3>Cesta Premium Luxo</h3>
+        <p>Cesta com vinhos, chocolates importados e decoração exclusiva. A mais pedida!</p>
+        <a href="https://wa.me/5551997215808?text=Ol%C3%A1%20D%27cestas%21%20Quero%20or%C3%A7ar%20a%20Cesta%20Premium" target="_blank" class="btn-pedir">Pedir no WhatsApp</a>
       </div>
     </div>
 
-    <div class="card" id="cestas">
-      <img src="wa_image_734350279898184992_1.jpg" alt="Cesta Dia dos Pais Balão">
+    <div class="card">
+      <span class="badge" style="background:#e63946">PROMO</span>
+      <img src="wa_image_734350279898184992_1.jpg" alt="Cesta Promo">
+      <div class="info">
+        <h3>Cesta Dia dos Pais - Oferta</h3>
+        <p>Promoção por tempo limitado! Cesta completa com 15% OFF.</p>
+        <a href="https://wa.me/5551997215808?text=Ol%C3%A1%20D%27cestas%21%20Quero%20aproveitar%20a%20promocao" target="_blank" class="btn-pedir">Pedir no WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SEÇÃO BUQUÊS -->
+<div class="section produtos" id="buques">
+  <h2>BUQUÊS</h2>
+  <div class="catalogo">
+    <div class="card">
+      <img src="wa_image_734350279898184992_0.jpg" alt="Buquê 1">
+      <div class="info">
+        <h3>Buquê de Flores</h3>
+        <p>Buquê personalizado com flores frescas. Ideal para datas especiais.</p>
+        <a href="https://wa.me/5551997215808?text=Ol%C3%A1%20D%27cestas%21%20Quero%20or%C3%A7ar%20um%20Buqu%C3%AA" target="_blank" class="btn-pedir">Pedir no WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SEÇÃO CESTAS -->
+<div class="section produtos" id="cestas">
+  <h2>CESTAS</h2>
+  <div class="catalogo">
+    <div class="card">
+      <img src="wa_image_734350279898184992_1.jpg" alt="Cesta Dia dos Pais">
       <div class="info">
         <h3>Cesta Dia dos Pais - Balão PAI</h3>
         <p>Cesta decorada com balão "PAI", chocolates e bebidas. Um presente que emociona.</p>
-        <a href="https://wa.me/5551997215808?text=Ol%C3%A1%20D%27cestas%21%20Quero%20or%C3%A7ar%20a%20Cesta%20Dia%20dos%20Pais%20-%20Bal%C3%A3o%20PAI" target="_blank" class="btn-pedir">Pedir no WhatsApp</a>
+        <a href="https://wa.me/5551997215808?text=Ol%C3%A1%20D%27cestas%21%20Quero%20or%C3%A7ar%20a%20Cesta%20Dia%20dos%20Pais" target="_blank" class="btn-pedir">Pedir no WhatsApp</a>
       </div>
     </div>
+  </div>
+</div>
 
-    <div class="card" id="presentes">
+<!-- SEÇÃO PRESENTES -->
+<div class="section produtos" id="presentes">
+  <h2>PRESENTES</h2>
+  <div class="catalogo">
+    <div class="card">
       <img src="wa_image_734350279898184992_2.jpg" alt="Cesta Dia dos Avós">
       <div class="info">
         <h3>Cesta Dia dos Avós</h3>
@@ -147,13 +202,13 @@ body {
         <a href="https://wa.me/5551997215808?text=Ol%C3%A1%20D%27cestas%21%20Quero%20or%C3%A7ar%20a%20Cesta%20Dia%20dos%20Av%C3%B3s" target="_blank" class="btn-pedir">Pedir no WhatsApp</a>
       </div>
     </div>
-
   </div>
 </div>
 
+<!-- SOBRE NÓS -->
 <div class="section sobre" id="sobre">
   <h2>SOBRE NÓS</h2>
-  <p>Somos a D'cestas e presentes de Cidreira e região. Trabalhamos com cestas personalizadas para todas as datas: Dia dos Pais, Dia das Mães, Namorados, Aniversários e Cacau Show. Entregamos com muito carinho e capricho 💛</p>
+  <p>Somos a D'cestas e presentes de Cidreira e região. Trabalhamos com cestas personalizadas para todas as datas: Dia dos Pais, Dia das Mães, Namorados e Aniversários. Entregamos com muito carinho e capricho 💛</p>
 </div>
 
 <div class="botoes-fixos">
