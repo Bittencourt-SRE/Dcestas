@@ -6,112 +6,57 @@
 <title>D'cestas e Presentes - Cidreira</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { 
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial; 
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial;
   background: #fdf8f5;
   color: #333;
 }
 .header { position: relative; }
-.header img { 
-  width: 100%; 
-  height: auto;
-  display: block;
-}
+.header img { width: 100%; height: auto; display: block; }
 
-/* MENU HAMBURGER - AGORA PRETO */
-.menu-btn {
-  position: absolute;
-  top: 25px;
-  left: 25px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  z-index: 100;
-}
-.menu-btn div {
-  width: 30px;
-  height: 4px;
-  background: #000; /* PRETO */
-  margin: 6px 0;
-  border-radius: 2px;
-}
-.sidebar { 
-  position: fixed; 
-  top: 0; 
-  left: -280px; 
-  width: 280px; 
-  height: 100%; 
-  background: #6b3e26; 
-  transition: 0.3s; 
-  padding-top: 100px; 
-  z-index: 99; 
-  box-shadow: 2px 0 10px rgba(0,0,0,0.5); 
-}
+/* MENU HAMBURGER */
+.menu-btn { position: absolute; top: 25px; left: 25px; background: none; border: none; cursor: pointer; z-index: 100; }
+.menu-btn div { width: 30px; height: 4px; background: #000; margin: 6px 0; border-radius: 2px; }
+.sidebar { position: fixed; top: 0; left: -280px; width: 280px; height: 100%; background: #6b3e26; transition: 0.3s; padding-top: 100px; z-index: 99; box-shadow: 2px 0 10px rgba(0,0,0,0.5); }
 .sidebar.active { left: 0; }
-.sidebar a { 
-  display: block; 
-  padding: 18px 30px; 
-  color: #fff; 
-  text-decoration: none; 
-  font-size: 18px; 
-  font-weight: 600;
-  border-bottom: 1px solid rgba(255,255,255,0.1); 
-}
+.sidebar a { display: block; padding: 18px 30px; color: #fff; text-decoration: none; font-size: 18px; font-weight: 600; border-bottom: 1px solid rgba(255,255,255,0.1); }
 .sidebar a:hover { background: #8a5030; padding-left: 35px; }
-.close-btn { 
-  position: absolute; 
-  top: 15px; 
-  right: 20px; 
-  font-size: 30px; 
-  background: none; 
-  border: none; 
-  color: #fff; 
-  cursor: pointer; 
-}
+.close-btn { position: absolute; top: 15px; right: 20px; font-size: 30px; background: none; border: none; color: #fff; cursor: pointer; }
 
-/* SISTEMA DE PAGINAS */
+/* PAGINAS */
 .page { display: none; padding: 40px 20px; max-width: 1000px; margin: 0 auto; }
 .page.active { display: block; }
 .page h2 { color: #6b3e26; text-align: center; font-size: 28px; margin-bottom: 30px; }
 .voltar-btn { background: #6b3e26; color: #fff; padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer; margin-bottom: 20px; font-size: 16px; font-weight: 600; }
 
-/* HOME - SÓ PREMIUM */
+/* PRODUTOS */
 .produtos { background: #f5e9da; border-radius: 15px; padding: 30px 20px; }
 .catalogo { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
 .card { background: #fff; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); overflow: hidden; text-align: center; }
-.card.premium { border: 2px solid #d4af37; }
+.card.premium { border: 3px solid #d4af37; position: relative; }
+.card.premium::before { content: "PREMIUM"; position: absolute; top: 10px; right: -30px; background: #d4af37; color: #fff; padding: 5px 40px; font-size: 11px; font-weight: bold; transform: rotate(45deg); z-index: 1; }
 .card img { width: 100%; height: 220px; object-fit: cover; }
-.card .info { padding: 15px; }
-.card .info h3 { font-size: 16px; color: #333; margin-bottom: 8px; }
-.card .info p { font-size: 13px; color: #666; margin-bottom: 12px; min-height: 35px; }
-.btn-pedir { background: #25D366; color: #fff; padding: 12px 20px; border-radius: 10px; text-decoration: none; font-weight: bold; display: inline-block; width: 90%; }
+.card.info { padding: 15px; }
+.card.info h3 { font-size: 16px; color: #333; margin-bottom: 8px; }
+.card.info p { font-size: 13px; color: #666; margin-bottom: 12px; min-height: 35px; }
+.preco { font-weight:bold; color:#c1121f; font-size:18px; margin-bottom:10px; }
+.btn-pedir { background: #25D366; color: #fff; padding: 12px 20px; border-radius: 10px; text-decoration: none; font-weight: bold; display: inline-block; width: 90%; cursor: pointer; border: none; }
 .btn-pedir:hover { background: #1ebe57; }
 
 /* SOBRE */
 .sobre { background: #fff; text-align: center; border-radius: 15px; padding: 30px 20px; }
 .sobre p { max-width: 600px; margin: 0 auto; line-height: 1.6; color: #555; }
 
-/* BOTÕES FIXOS COM LOGOS IGUAL PH */
+/* BOTÕES FIXOS */
 .botoes-fixos { position: fixed; bottom: 20px; right: 20px; display: flex; flex-direction: column; gap: 10px; z-index: 98; }
-.btn-float { 
-  color: #fff; 
-  padding: 14px 18px; 
-  border-radius: 15px; 
-  text-decoration: none; 
-  font-weight: bold; 
-  font-size: 15px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.3); 
-  display: flex; 
-  align-items: center; 
-  gap: 8px;
-  transition: transform 0.2s;
-}
+.btn-float { color: #fff; padding: 14px 18px; border-radius: 15px; text-decoration: none; font-weight: bold; font-size: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); display: flex; align-items: center; gap: 8px; transition: transform 0.2s; }
 .btn-float:hover { transform: scale(1.05); }
-.btn-whatsapp { background: #25D366; box-shadow: 0 4px 15px rgba(37,211,102,0.4); }
-.btn-instagram { background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); box-shadow: 0 4px 15px rgba(220,39,67,0.4); }
+.btn-whatsapp { background: #25D366; }
+.btn-instagram { background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); }
 
 .rodape { background: #222; color: #aaa; text-align: center; padding: 20px; font-size: 12px; }
 .rodape a { color: #25D366; font-weight: 600; text-decoration: none; }
+.loading { text-align: center; color: #6b3e26; font-size: 18px; padding: 40px; }
 </style>
 </head>
 <body>
@@ -135,81 +80,36 @@ body {
   </button>
 </div>
 
-<!-- PAGINA 1: HOME - SÓ DESTAQUES PREMIUM -->
+<!-- HOME - PREMIUM -->
 <div id="home" class="page active">
   <div class="produtos">
     <h2>🌟 DESTAQUES PREMIUM</h2>
-    <div class="catalogo">
-      <div class="card premium">
-        <img src="wa_image_734350279898184992_0.jpg" alt="Cesta Premium">
-        <div class="info">
-          <h3>Cesta Premium Luxo</h3>
-          <p>Cesta com vinhos, chocolates importados e decoração exclusiva. A mais pedida!</p>
-          <a href="https://wa.me/5551997215808?text=Ol%C3%A1%20D%27cestas%21%20Quero%20or%C3%A7ar%20a%20Cesta%20Premium" target="_blank" class="btn-pedir">Pedir no WhatsApp</a>
-        </div>
-      </div>
-
-      <div class="card premium">
-        <img src="wa_image_734350279898184992_1.jpg" alt="Cesta Corporativa">
-        <div class="info">
-          <h3>Cesta Corporativa VIP</h3>
-          <p>Ideal para empresas. Vem em caixa de madeira com 8 itens gourmet.</p>
-          <a href="https://wa.me/5551997215808?text=Ol%C3%A1%20D%27cestas%21%20Quero%20or%C3%A7ar%20a%20Cesta%20Corporativa" target="_blank" class="btn-pedir">Pedir no WhatsApp</a>
-        </div>
-      </div>
-    </div>
+    <div id="catalogo-home" class="catalogo"><div class="loading">Carregando...</div></div>
   </div>
 </div>
 
-<!-- PAGINA 2: GALERIA BUQUÊS -->
+<!-- BUQUÊS -->
 <div id="buques" class="page">
   <button class="voltar-btn" onclick="showPage('home')">← Voltar</button>
   <h2>BUQUÊS</h2>
-  <div class="catalogo">
-    <div class="card">
-      <img src="wa_image_734350279898184992_0.jpg" alt="Buquê Rosas">
-      <div class="info">
-        <h3>Buquê de Rosas</h3>
-        <p>Buquê com 12 rosas vermelhas + papel premium. Entrega em Cidreira.</p>
-        <a href="https://wa.me/5551997215808?text=Ol%C3%A1%20D%27cestas%21%20Quero%20or%C3%A7ar%20o%20Buqu%C3%AA%20de%20Rosas" target="_blank" class="btn-pedir">Pedir no WhatsApp</a>
-      </div>
-    </div>
-  </div>
+  <div id="catalogo-buques" class="catalogo"><div class="loading">Carregando...</div></div>
 </div>
 
-<!-- PAGINA 3: GALERIA CESTAS -->
+<!-- CESTAS -->
 <div id="cestas" class="page">
   <button class="voltar-btn" onclick="showPage('home')">← Voltar</button>
   <h2>CESTAS</h2>
-  <div class="catalogo">
-    <div class="card">
-      <img src="wa_image_734350279898184992_1.jpg" alt="Cesta Dia dos Pais">
-      <div class="info">
-        <h3>Cesta Dia dos Pais - Balão PAI</h3>
-        <p>Cesta decorada com balão "PAI", chocolates e bebidas. Um presente que emociona.</p>
-        <a href="https://wa.me/5551997215808?text=Ol%C3%A1%20D%27cestas%21%20Quero%20or%C3%A7ar%20a%20Cesta%20Dia%20dos%20Pais" target="_blank" class="btn-pedir">Pedir no WhatsApp</a>
-      </div>
-    </div>
-  </div>
+  <div id="catalogo-cestas" class="catalogo"><div class="loading">Carregando...</div></div>
 </div>
 
-<!-- PAGINA 4: GALERIA PRESENTES -->
+<!-- PRESENTES -->
 <div id="presentes" class="page">
   <button class="voltar-btn" onclick="showPage('home')">← Voltar</button>
   <h2>PRESENTES</h2>
-  <div class="catalogo">
-    <div class="card">
-      <img src="wa_image_734350279898184992_2.jpg" alt="Cesta Dia dos Avós">
-      <div class="info">
-        <h3>Cesta Dia dos Avós</h3>
-        <p>Cesta carinho com guloseimas, caneca e balão "Feliz dia dos Avós". Entrega com amor.</p>
-        <a href="https://wa.me/5551997215808?text=Ol%C3%A1%20D%27cestas%21%20Quero%20or%C3%A7ar%20a%20Cesta%20Dia%20dos%20Av%C3%B3s" target="_blank" class="btn-pedir">Pedir no WhatsApp</a>
-      </div>
-    </div>
-  </div>
+  <div id="catalogo-presentes" class="catalogo"><div class="loading">Carregando...</div></div>
 </div>
 
-<!-- PAGINA 5: SOBRE -->
+<!-- SOBRE -->
 <div id="sobre" class="page">
   <button class="voltar-btn" onclick="showPage('home')">← Voltar</button>
   <div class="sobre">
@@ -218,14 +118,14 @@ body {
   </div>
 </div>
 
-<!-- BOTÕES FIXOS IGUAL PH COM SVG -->
+<!-- BOTÕES FIXOS -->
 <div class="botoes-fixos">
   <a href="https://wa.me/5551997215808?text=Ol%C3%A1%2C%20vim%20pelo%20site%2C%20desejo%20de%20ser%20atendido%28a%29%20por%20aqui." target="_blank" class="btn-float btn-whatsapp">
-    <svg width="20" height="20" viewBox="0 0 32 32" fill="white"><path d="M16 2C8.268 2 2 8.268 2 16c0 2.666.736 5.162 2.015 7.29L2 30l6.89-1.806A14.005 14.005 0 0 0 16 30c7.732 0 14-6.268 14-14S23.732 2 16 2zm0 25.714c-2.274 0-4.474-.61-6.41-1.765l-.46-.275-4.086 1.07 1.093-3.975-.3-.484A11.432 11.432 0 0 1 4.286 16c0-6.45 5.264-11.714 11.714-11.714S27.714 9.55 27.714 16 22.45 27.714 16 27.714zm6.5-8.688c-.356-.178-2.1-1.036-2.425-1.154-.325-.118-.562-.178-.8.178-.237.356-.92 1.154-1.128 1.39-.208.237-.416.267-.772.089-.356-.178-1.5-.553-2.858-1.764-1.057-.942-1.77-2.107-1.978-2.463-.208-.356-.022-.55.156-.727.16-.16.356-.416.534-.623.178-.208.237-.356.356-.593.118-.237.06-.444-.03-.623-.09-.178-.8-1.926-1.095-2.64-.288-.692-.58-.597-.8-.608-.208-.01-.447-.01-.687-.01-.237 0-.623.089-.95.444-.325.356-1.243 1.215-1.243 2.965s1.273 3.44 1.45 3.68c.178.237 2.506 3.826 6.07 5.37.85.367 1.513.587 2.03.75.853.27 1.63.232 2.244.14.685-.102 2.1-.858 2.396-1.687.296-.828.296-1.538.207-1.687-.09-.148-.325-.237-.68-.415z"/></svg> 
+    <svg width="20" height="20" viewBox="0 0 32 32" fill="white"><path d="M16 2C8.268 2 2 8.268 2 16c0 2.666.736 5.162 2.015 7.29L2 30l6.89-1.806A14.005 14.005 0 0 0 16 30c7.732 0 14-6.268 14-14S23.732 2 16 2zm0 25.714c-2.274 0-4.474-.61-6.41-1.765l-.46-.275-4.086 1.07 1.093-3.975-.3-.484A11.432 11.432 0 0 1 4.286 16c0-6.45 5.264-11.714 11.714-11.714S27.714 9.55 27.714 16 22.45 27.714 16 27.714zm6.5-8.688c-.356-.178-2.1-1.036-2.425-1.154-.325-.118-.562-.178-.8.178-.237.356-.92 1.154-1.128 1.39-.208.237-.416.267-.772.089-.356-.178-1.5-.553-2.858-1.764-1.057-.942-1.77-2.107-1.978-2.463-.208-.356-.022-.55.156-.727.16-.16.356-.416.534-.623.178-.208.237-.356.356-.593.118-.237.06-.444-.03-.623-.09-.178-.8-1.926-1.095-2.64-.288-.692-.58-.597-.8-.608-.208-.01-.447-.01-.687-.01-.237 0-.623.089-.95.444-.325.356-1.243 1.215-1.243 2.965s1.273 3.44 1.45 3.68c.178.237 2.506 3.826 6.07 5.37.85.367 1.513.587 2.03.75.853.27 1.63.232 2.244.14.685-.102 2.1-.858 2.396-1.687.296-.828.296-1.538.207-1.687-.09-.148-.325-.237-.68-.415z"/></svg>
     WhatsApp
   </a>
   <a href="https://www.instagram.com/d.cestasepresentes?igsh=MWN6bTdwN2Y4empnaw==" target="_blank" class="btn-float btn-instagram">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg> 
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
     Instagram
   </a>
 </div>
@@ -235,6 +135,71 @@ body {
 </div>
 
 <script>
+const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTLU-825Dgbnj7DJzmr_isSjfhiyNQWZBnGCnD397_QC88666XobkPP_-ls4tnWQjjb1aIzn8kY1Pax/pub?output=csv";
+const NUMERO_WHATSAPP = "5551997215808";
+
+function converterLinkDrive(link) {
+  if(!link) return "";
+  const match = link.match(/\/d\/([a-zA-Z0-9-_]+)/);
+  if (match && match[1]) {
+    return `https://drive.google.com/uc?export=view&id=${match[1]}`;
+  }
+  return link;
+}
+
+function gerarBotaoWhats(nome) {
+  const msg = encodeURIComponent(`Olá D'cestas! Quero orçar: ${nome}`);
+  return `https://wa.me/${NUMERO_WHATSAPP}?text=${msg}`;
+}
+
+function criarCard(produto, isPremium = false) {
+  const img = converterLinkDrive(produto['Link da imagem']);
+  const btn = gerarBotaoWhats(produto['Nome']);
+  return `
+    <div class="card ${isPremium? 'premium' : ''}">
+      <img src="${img}" alt="${produto['Nome']}">
+      <div class="info">
+        <h3>${produto['Nome']}</h3>
+        <p>${produto['Descricao']}</p>
+        <p class="preco">R$ ${produto['Valor']}</p>
+        <a href="${btn}" target="_blank" class="btn-pedir">Pedir no WhatsApp</a>
+      </div>
+    </div>
+  `;
+}
+
+async function carregarProdutos() {
+  try {
+    const res = await fetch(SHEET_CSV_URL);
+    const texto = await res.text();
+    const linhas = texto.split('\n');
+    const cabecalho = linhas[0].split(',');
+    const dados = linhas.slice(1).map(l => {
+      const colunas = l.split(',');
+      let obj = {};
+      cabecalho.forEach((chave, i) => obj[chave.trim()] = colunas[i]?.trim());
+      return obj;
+    }).filter(p => p['Nome']);
+
+    // PREMIUM = Categoria Premium
+    const premium = dados.filter(p => p['Categoria']?.toLowerCase() === 'premium');
+    document.getElementById('catalogo-home').innerHTML = premium.map(p => criarCard(p, true)).join('') || '<p>Nenhum produto Premium cadastrado</p>';
+
+    // FILTRA POR CATEGORIA
+    const buques = dados.filter(p => p['Categoria']?.toLowerCase() === 'buque');
+    const cestas = dados.filter(p => p['Categoria']?.toLowerCase() === 'cesta');
+    const presentes = dados.filter(p => p['Categoria']?.toLowerCase() === 'presente');
+
+    document.getElementById('catalogo-buques').innerHTML = buques.map(p => criarCard(p)).join('') || '<p>Nenhum buquê cadastrado</p>';
+    document.getElementById('catalogo-cestas').innerHTML = cestas.map(p => criarCard(p)).join('') || '<p>Nenhuma cesta cadastrada</p>';
+    document.getElementById('catalogo-presentes').innerHTML = presentes.map(p => criarCard(p)).join('') || '<p>Nenhum presente cadastrado</p>';
+
+  } catch(e) {
+    console.error(e);
+    document.querySelectorAll('.catalogo').forEach(c => c.innerHTML = '<p>Erro ao carregar produtos. Verifica se a planilha está pública.</p>');
+  }
+}
+
 function toggleMenu() {
   document.getElementById('sidebar').classList.toggle('active');
 }
@@ -244,6 +209,8 @@ function showPage(pageId) {
   document.getElementById('sidebar').classList.remove('active');
   window.scrollTo(0, 0);
 }
+
+carregarProdutos();
 </script>
 
 </body>
