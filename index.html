@@ -35,10 +35,11 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial; backgr
 .produtos { background: #f5e9da; border-radius: 15px; padding: 30px 20px; }
 .catalogo { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
 
-/* CARD QUE VIRA */
+/* CARD QUE VIRA - AJUSTADO */
 .card-wrapper { perspective: 1000px; position: relative; }
 .card {
-  position: relative; width: 100%; height: 430px;
+  position: relative; width: 100%; height: auto;
+  min-height: 430px;
   transition: transform 0.6s; transform-style: preserve-3d; cursor: pointer;
 }
 .card.flipped { transform: rotateY(180deg); }
@@ -47,6 +48,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial; backgr
   position: absolute; width: 100%; height: 100%; backface-visibility: hidden;
   border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
   overflow: hidden; background: #fff; display: flex; flex-direction: column; text-align: center;
+  justify-content: space-between;
 }
 .card-back {
   transform: rotateY(180deg);
@@ -54,6 +56,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial; backgr
   color: #fff;
   padding: 25px 20px;
   border-radius: 15px;
+  justify-content: center;
 }
 
 .card.premium.card-front { border: 3px solid #d4af37; }
@@ -64,19 +67,25 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial; backgr
 }
 
 .card-front img { width: 100%; height: 220px; object-fit: cover; background: #eee; flex-shrink: 0; }
-.card-front.info { padding: 15px; display: flex; flex-direction: column; flex: 1; }
-.card-front h3 { font-size: 17px; color: #333; margin-bottom: 8px; font-weight: 700; }
-.preco { font-weight:bold; color:#2a9d8f; font-size:24px; margin-bottom:12px; margin-top: auto; }
-.btn-pedir { background: #25D366; color: #fff; padding: 14px 20px; border-radius: 12px; text-decoration: none; font-weight: bold; width: 90%; margin: 0 auto; display: block; font-size: 16px; }
+.card-front.info {
+  padding: 18px 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  flex: 1;
+}
+.card-front h3 { font-size: 17px; color: #333; font-weight: 700; margin: 0; }
+.preco { font-weight:bold; color:#2a9d8f; font-size:24px; margin: 0; }
+.btn-pedir { background: #25D366; color: #fff; padding: 14px 20px; border-radius: 12px; text-decoration: none; font-weight: bold; width: 90%; margin: 5px auto 0; display: block; font-size: 16px; }
 
 .card-back h3 { font-size: 20px; margin-bottom: 15px; color: #fff; font-weight: 700; }
 .card-back.descricao {
   font-size: 15px;
   line-height: 2;
-  white-space: pre-line; /* AQUI: cada quebra de linha da planilha vira uma linha */
+  white-space: pre-line;
   text-align: center;
   overflow-y: auto;
-  flex: 1;
 }
 .card-back.dica { font-size: 12px; margin-top: 15px; opacity: 0.8; font-style: italic; }
 
@@ -99,7 +108,6 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial; backgr
   <img src="header_final_dccestas.jpg" alt="D'cestas e presentes">
   <button class="menu-btn" onclick="toggleMenu()"><div></div><div></div><div></div></button>
   <div class="botoes-topo">
-    <!-- VOLTEI OS ÍCONES SVG BONITOS -->
     <a href="https://wa.me/5551997215808?text=Ol%C3%A1%2C%20vim%20pelo%20site%2C%20desejo%20de%20ser%20atendido%28a%29%20por%20aqui." target="_blank" class="btn-icone btn-icone-whatsapp" title="WhatsApp">
       <svg width="22" height="22" viewBox="0 0 32 32" fill="white"><path d="M16 2C8.268 2 2 8.268 2 16c0 2.666.736 5.162 2.015 7.29L2 30l6.89-1.806A14.005 14.005 0 0 0 16 30c7.732 0 14-6.268 14-14S23.732 2 16 2zm0 25.714c-2.274 0-4.474-.61-6.41-1.765l-.46-.275-4.086 1.07 1.093-3.975-.3-.484A11.432 11.432 0 0 1 4.286 16c0-6.45 5.264-11.714 11.714-11.714S27.714 9.55 27.714 16 22.45 27.714 16 27.714zm6.5-8.688c-.356-.178-2.1-1.036-2.425-1.154-.325-.118-.562-.178-.8.178-.237.356-.92 1.154-1.128 1.39-.208.237-.416.267-.772.089-.356-.178-1.5-.553-2.858-1.764-1.057-.942-1.77-2.107-1.978-2.463-.208-.356-.022-.55.156-.727.16-.16.356-.416.534-.623.178-.208.237-.356.356-.593.118-.237.06-.444-.03-.623-.09-.178-.8-1.926-1.095-2.64-.288-.692-.58-.597-.8-.608-.208-.01-.447-.01-.687-.01-.237 0-.623.089-.95.444-.325.356-1.243 1.215-1.243 2.965s1.273 3.44 1.45 3.68c.178.237 2.506 3.826 6.07 5.37.85.367 1.513.587 2.03.75.853.27 1.63.232 2.244.14.685-.102 2.1-.858 2.396-1.687.296-.828.296-1.538.207-1.687-.09-.148-.325-.237-.68-.415z"/></svg>
     </a>
