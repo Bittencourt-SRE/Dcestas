@@ -73,8 +73,14 @@ body {
 }
 #overlay.active { display: block; }
 
-.section { padding: 40px 20px; max-width: 1000px; margin: 0 auto; }
-.section h2 { text-align: center; font-size: 24px; color: #6b3e26; margin-bottom: 25px; }
+/* ESPAÇAMENTO PRA NÃO FICAR ATRÁS DO HEADER AO ROLAR */
+.section { 
+  padding: 40px 20px; 
+  max-width: 1000px; 
+  margin: 0 auto; 
+  scroll-margin-top: 80px; /* importante pra ancora não ficar atrás */
+}
+.section h2 { text-align: center; font-size: 26px; color: #6b3e26; margin-bottom: 30px; }
 
 /* FUNDO CREME NAS SEÇÕES DE PRODUTOS */
 .produtos { background: #f5e9da; }
@@ -134,7 +140,7 @@ body {
 </div>
 <div id="overlay" onclick="toggleMenu()"></div>
 
-<!-- NOVA SEÇÃO: DESTAQUES / PROMOÇÕES / PREMIUM -->
+<!-- SEÇÃO 1: DESTAQUES - PRA VENDER OS MAIS PEDIDOS/PREMIUM -->
 <div class="section produtos" id="destaques">
   <h2>🌟 DESTAQUES DA SEMANA</h2>
   <div class="catalogo">
@@ -149,33 +155,40 @@ body {
     </div>
 
     <div class="card">
-      <span class="badge" style="background:#e63946">PROMO</span>
-      <img src="wa_image_734350279898184992_1.jpg" alt="Cesta Promo">
+      <img src="wa_image_734350279898184992_1.jpg" alt="Cesta Oferta">
       <div class="info">
         <h3>Cesta Dia dos Pais - Oferta</h3>
-        <p>Promoção por tempo limitado! Cesta completa com 15% OFF.</p>
-        <a href="https://wa.me/5551997215808?text=Ol%C3%A1%20D%27cestas%21%20Quero%20aproveitar%20a%20promocao" target="_blank" class="btn-pedir">Pedir no WhatsApp</a>
+        <p>Cesta completa com guloseimas e caneca personalizada.</p>
+        <a href="https://wa.me/5551997215808?text=Ol%C3%A1%20D%27cestas%21%20Quero%20or%C3%A7ar%20a%20Cesta%20Oferta" target="_blank" class="btn-pedir">Pedir no WhatsApp</a>
       </div>
     </div>
   </div>
 </div>
 
-<!-- SEÇÃO BUQUÊS -->
+<!-- SEÇÃO 2: GALERIA DE BUQUÊS -->
 <div class="section produtos" id="buques">
   <h2>BUQUÊS</h2>
   <div class="catalogo">
     <div class="card">
-      <img src="wa_image_734350279898184992_0.jpg" alt="Buquê 1">
+      <img src="wa_image_734350279898184992_0.jpg" alt="Buquê Rosas">
       <div class="info">
-        <h3>Buquê de Flores</h3>
-        <p>Buquê personalizado com flores frescas. Ideal para datas especiais.</p>
-        <a href="https://wa.me/5551997215808?text=Ol%C3%A1%20D%27cestas%21%20Quero%20or%C3%A7ar%20um%20Buqu%C3%AA" target="_blank" class="btn-pedir">Pedir no WhatsApp</a>
+        <h3>Buquê de Rosas</h3>
+        <p>Buquê com 12 rosas vermelhas + papel premium. Entrega em Cidreira.</p>
+        <a href="https://wa.me/5551997215808?text=Ol%C3%A1%20D%27cestas%21%20Quero%20or%C3%A7ar%20o%20Buqu%C3%AA%20de%20Rosas" target="_blank" class="btn-pedir">Pedir no WhatsApp</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="wa_image_734350279898184992_0.jpg" alt="Buquê Girassol">
+      <div class="info">
+        <h3>Buquê de Girassóis</h3>
+        <p>Buquê alegre com girassóis e folhagens. Perfeito pra presentear.</p>
+        <a href="https://wa.me/5551997215808?text=Ol%C3%A1%20D%27cestas%21%20Quero%20or%C3%A7ar%20o%20Buqu%C3%AA%20de%20Girass%C3%B3is" target="_blank" class="btn-pedir">Pedir no WhatsApp</a>
       </div>
     </div>
   </div>
 </div>
 
-<!-- SEÇÃO CESTAS -->
+<!-- SEÇÃO 3: GALERIA DE CESTAS -->
 <div class="section produtos" id="cestas">
   <h2>CESTAS</h2>
   <div class="catalogo">
@@ -187,10 +200,18 @@ body {
         <a href="https://wa.me/5551997215808?text=Ol%C3%A1%20D%27cestas%21%20Quero%20or%C3%A7ar%20a%20Cesta%20Dia%20dos%20Pais" target="_blank" class="btn-pedir">Pedir no WhatsApp</a>
       </div>
     </div>
+    <div class="card">
+      <img src="wa_image_734350279898184992_2.jpg" alt="Cesta Aniversário">
+      <div class="info">
+        <h3>Cesta Aniversário</h3>
+        <p>Cesta com doces, salgados e bebida. Ideal para comemorar.</p>
+        <a href="https://wa.me/5551997215808?text=Ol%C3%A1%20D%27cestas%21%20Quero%20or%C3%A7ar%20a%20Cesta%20Anivers%C3%A1rio" target="_blank" class="btn-pedir">Pedir no WhatsApp</a>
+      </div>
+    </div>
   </div>
 </div>
 
-<!-- SEÇÃO PRESENTES -->
+<!-- SEÇÃO 4: GALERIA DE PRESENTES -->
 <div class="section produtos" id="presentes">
   <h2>PRESENTES</h2>
   <div class="catalogo">
@@ -200,6 +221,14 @@ body {
         <h3>Cesta Dia dos Avós</h3>
         <p>Cesta carinho com guloseimas, caneca e balão "Feliz dia dos Avós". Entrega com amor.</p>
         <a href="https://wa.me/5551997215808?text=Ol%C3%A1%20D%27cestas%21%20Quero%20or%C3%A7ar%20a%20Cesta%20Dia%20dos%20Av%C3%B3s" target="_blank" class="btn-pedir">Pedir no WhatsApp</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="wa_image_734350279898184992_0.jpg" alt="Presente Caneca">
+      <div class="info">
+        <h3>Caneca Personalizada</h3>
+        <p>Caneca com nome e frase. Acompanha caixa presente.</p>
+        <a href="https://wa.me/5551997215808?text=Ol%C3%A1%20D%27cestas%21%20Quero%20or%C3%A7ar%20a%20Caneca%20Personalizada" target="_blank" class="btn-pedir">Pedir no WhatsApp</a>
       </div>
     </div>
   </div>
