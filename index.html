@@ -118,10 +118,11 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial; backgr
 .popup-overlay.active { display: flex; }
 .popup {
   background: #fff; border-radius: 15px; padding: 25px; width: 100%; max-width: 500px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3); position: relative; max-height: 90vh; overflow-y: auto;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3); position: relative; max-height: 81vh; overflow-y: auto; /* -10% na vertical */
 }
 .popup-close { position: absolute; top: 10px; right: 15px; background: none; border: none; font-size: 28px; color: #6b3e26; cursor: pointer; }
-.popup h3 { color: #6b3e26; margin-bottom: 15px; text-align: center; }
+.popup-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+.popup-header h3 { color: #6b3e26; margin: 0; }
 .lista-carrinho { margin-bottom: 20px; max-height: 250px; overflow-y: auto; }
 .item-carrinho { display: flex; flex-direction:column; padding: 12px; border-bottom: 1px solid #f5e9da; font-size: 14px; }
 .total-geral { text-align: right; font-size: 20px; font-weight: bold; color: #2a9d8f; margin: 15px 0; }
@@ -138,6 +139,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial; backgr
 .btn-secundario { background: #ccc; color: #333; }
 .btn-qtd { width:28px;height:28px;border:1px solid #4169E1;border-radius:6px;background:#fff;cursor:pointer;font-weight:bold;color:#4169E1; }
 .btn-qtd:hover { background:#4169E1; color:#fff; }
+.btn-lixo { background:none;border:none;font-size:20px;cursor:pointer;color:#e63946; }
 </style>
 </head>
 <body>
@@ -185,14 +187,13 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial; backgr
 <div class="popup-overlay" id="popup-overlay" onclick="fecharPopup()">
   <div class="popup" onclick="event.stopPropagation()">
     <button class="popup-close" onclick="fecharPopup()">×</button>
-    <h3 id="popup-titulo">Seu Carrinho</h3>
     <div id="conteudo-popup"></div>
   </div>
 </div>
 
 <script>
 const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/11fxpMU9iX_U01qyMOAUfmcNTbw68ZZhg17dIM69frmI/export?format=csv";
-const NUMERO_WHATSAPP = "555199995702188"; // NUMERO CORRIGIDO DA KEROLYN
+const NUMERO_WHATSAPP = "555199995702188";
 let todasCategorias = [];
 let carrinho = [];
 
@@ -297,13 +298,13 @@ function preencherProdutos(dados) {
   });
 }
 
-// ===== FUNÇÕES DO CARRINHO NOVAS =====
+// ===== FUNÇÕES DO CARRINHO =====
 function adicionarAoCarrinho(nome, preco) {
   const itemExistente = carrinho.find(item => item.nome === nome);
   if(itemExistente) {
     itemExistente.qtd++;
   } else {
-    carrinho.push({ nome, preco, qtd: 1 });
+    carrinho.push({ nome, preco, qtd: 1 }); // Cria nova linha se for produto diferente
   }
   atualizarBadge();
   abrirPopupAdicionado(nome);
@@ -319,7 +320,7 @@ function alterarQtd(index, delta) {
 }
 
 function removerItem(index) {
-  carrinho.splice(index, 1);
+  carrinho.splice(index, 1); // Remove todas as unidades daquele produto
   atualizarBadge();
   abrirCarrinho();
 }
@@ -340,8 +341,8 @@ function atualizarBadge() {
 }
 
 function abrirPopupAdicionado(nome) {
-  document.getElementById('popup-titulo').innerText = "Produto Adicionado!";
   document.getElementById('conteudo-popup').innerHTML = `
+    <h3 style="text-align:center; color:#6b3e26; margin-bottom:20px;">Produto Adicionado!</h3>
     <p style="text-align:center; margin-bottom:20px;"><b>${nome}</b> foi adicionado ao carrinho.</p>
     <div class="btn-botoes">
       <button class="btn-azul btn-secundario" onclick="fecharPopup()">Continuar Comprando</button>
@@ -356,9 +357,15 @@ function abrirCarrinho() {
     alert("Seu carrinho está vazio!");
     return;
   }
-  document.getElementById('popup-titulo').innerHTML = `Seu Carrinho <button onclick="esvaziarCarrinho()" style="background:none;border:none;font-size:20px;cursor:pointer;float:right;color:#e63946;" title="Esvaziar Carrinho">🗑️</button>`;
 
-  let htmlItens = '<div class="lista-carrinho">';
+  let htmlItens = `
+    <div class="popup-header">
+      <button onclick="esvaziarCarrinho()" class="btn-lixo" title="Esvaziar Carrinho">🗑️</button>
+      <h3>Seu Carrinho</h3>
+      <span style="width:24px"></span>
+    </div>
+    <div class="lista-carrinho">
+  `;
   let totalGeral = 0;
 
   carrinho.forEach((item, index) => {
@@ -368,7 +375,7 @@ function abrirCarrinho() {
       <div class="item-carrinho">
         <div style="display:flex; justify-content:space-between; align-items:center;">
           <span style="font-weight:600;">${item.nome}</span>
-          <button onclick="removerItem(${index})" style="background:none;border:none;font-size:18px;cursor:pointer;color:#e63946;" title="Remover">🗑️</button>
+          <button onclick="removerItem(${index})" class="btn-lixo" title="Remover Produto">🗑️</button>
         </div>
         <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
           <div style="display:flex; align-items:center; gap:8px;">
