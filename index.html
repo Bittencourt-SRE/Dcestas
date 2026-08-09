@@ -35,7 +35,6 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial; backgr
 .produtos { background: #f5e9da; border-radius: 15px; padding: 30px 20px; }
 .catalogo { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
 
-/* CARD QUE VIRA - SÓ MUDEI AQUI */
 .card-wrapper { perspective: 1000px; position: relative; }
 .card {
   position: relative; width: 100%; height: auto;
@@ -82,7 +81,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial; backgr
 }
 .card-front h3 { font-size: 17px; color: #333; font-weight: 700; margin: 0; }
 .preco { font-weight:bold; color:#2a9d8f; font-size:24px; margin: 0; }
-.btn-pedir { background: #25D366; color: #fff; padding: 14px 20px; border-radius: 12px; text-decoration: none; font-weight: bold; width: 90%; margin: 0 auto; display: block; font-size: 16px; border: none; cursor: pointer; }
+.btn-pedir { background: #4169E1; color: #fff; padding: 14px 20px; border-radius: 12px; text-decoration: none; font-weight: bold; width: 90%; margin: 0 auto; display: block; font-size: 16px; border: none; cursor: pointer; }
 
 .card-back h3 { font-size: 20px; margin-bottom: 15px; color: #fff; font-weight: 700; }
 .card-back.descricao {
@@ -100,29 +99,43 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial; backgr
 .rodape a { color: #25D366; font-weight: 600; text-decoration: none; }
 .loading { text-align: center; color: #6b3e26; font-size: 18px; padding: 40px; }
 
-/* ===== POPUP NOVO ===== */
+/* ===== CARRINHO FLUTUANTE ===== */
+.btn-carrinho-flutuante {
+  position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px;
+  background: #4169E1; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 150; cursor: grab; border: none;
+}
+.btn-carrinho-flutuante:active { cursor: grabbing; }
+.btn-carrinho-flutuante span { font-size: 28px; }
+.badge-qtd {
+  position: absolute; top: -5px; right: -5px; background: #e63946; color: #fff;
+  border-radius: 50%; width: 24px; height: 24px; font-size: 12px; font-weight: bold;
+  display: none; align-items: center; justify-content: center;
+}
+
+/* ===== POPUP ===== */
 .popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 200; justify-content: center; align-items: center; padding: 20px; }
 .popup-overlay.active { display: flex; }
 .popup {
-  background: #fff; border-radius: 15px; padding: 25px; width: 100%; max-width: 450px;
+  background: #fff; border-radius: 15px; padding: 25px; width: 100%; max-width: 500px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.3); position: relative; max-height: 90vh; overflow-y: auto;
 }
 .popup-close { position: absolute; top: 10px; right: 15px; background: none; border: none; font-size: 28px; color: #6b3e26; cursor: pointer; }
 .popup h3 { color: #6b3e26; margin-bottom: 15px; text-align: center; }
-.popup.produto-nome { text-align: center; font-weight: 700; margin-bottom: 20px; color: #333; }
+.lista-carrinho { margin-bottom: 20px; max-height: 200px; overflow-y: auto; }
+.item-carrinho { display: flex; justify-content: space-between; padding: 10px; border-bottom: 1px solid #f5e9da; font-size: 14px; }
+.total-geral { text-align: right; font-size: 20px; font-weight: bold; color: #2a9d8f; margin: 15px 0; }
 .form-group { margin-bottom: 15px; }
 .form-group label { display: block; font-weight: 600; margin-bottom: 5px; color: #6b3e26; font-size: 14px; }
+.form-group label.req { color: #e63946; }
 .form-group input,.form-group textarea { width: 100%; padding: 10px; border: 2px solid #f5e9da; border-radius: 8px; font-size: 15px; }
-.form-group input:focus,.form-group textarea:focus { outline: none; border-color: #25D366; }
-.qtd-control { display: flex; align-items: center; justify-content: center; gap: 15px; }
-.qtd-btn { width: 40px; height: 40px; border: 2px solid #6b3e26; background: #fff; color: #6b3e26; border-radius: 50%; font-size: 20px; font-weight: bold; cursor: pointer; }
-.qtd-btn:active { background: #6b3e26; color: #fff; }
-.qtd-input { width: 60px; text-align: center; font-weight: bold; font-size: 18px; }
+.form-group input:focus,.form-group textarea:focus { outline: none; border-color: #4169E1; }
 .pagamento-options { display: flex; flex-direction: column; gap: 10px; }
 .pagamento-options label { display: flex; align-items: center; gap: 8px; cursor: pointer; font-weight: normal; }
-.pagamento-options input[type="radio"] { accent-color: #25D366; width: 18px; height: 18px; }
-.btn-enviar-pedido { width: 100%; background: #25D366; color: #fff; padding: 15px; border: none; border-radius: 12px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 10px; }
-.total-box { text-align: center; font-size: 20px; font-weight: bold; color: #2a9d8f; margin: 15px 0; }
+.pagamento-options input[type="radio"] { accent-color: #4169E1; width: 18px; height: 18px; }
+.btn-azul { width: 100%; background: #4169E1; color: #fff; padding: 15px; border: none; border-radius: 12px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+.btn-botoes { display: flex; gap: 10px; }
+.btn-secundario { background: #ccc; color: #333; }
 </style>
 </head>
 <body>
@@ -160,58 +173,28 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial; backgr
 </div>
 <div class="rodape">Desenvolvido por <a href="https://wa.me/5551985108885" target="_blank">Edmilson Bittencourt</a></div>
 
-<!-- POPUP -->
+<!-- BOTÃO CARRINHO FLUTUANTE -->
+<button class="btn-carrinho-flutuante" id="btn-carrinho" onclick="abrirCarrinho()">
+  <span>🛒</span>
+  <div class="badge-qtd" id="badge-qtd">0</div>
+</button>
+
+<!-- POPUP CARRINHO -->
 <div class="popup-overlay" id="popup-overlay" onclick="fecharPopup()">
   <div class="popup" onclick="event.stopPropagation()">
     <button class="popup-close" onclick="fecharPopup()">×</button>
-    <h3>Finalizar Pedido</h3>
-    <div class="produto-nome" id="popup-produto-nome"></div>
-    <form id="form-pedido">
-      <div class="form-group">
-        <label>Quantidade</label>
-        <div class="qtd-control">
-          <button type="button" class="qtd-btn" onclick="mudarQtd(-1)">-</button>
-          <input type="number" id="qtd" class="qtd-input" value="1" min="1" readonly>
-          <button type="button" class="qtd-btn" onclick="mudarQtd(1)">+</button>
-        </div>
-      </div>
-      <div class="total-box" id="total-box">Total: R$ 0,00</div>
-      <div class="form-group">
-        <label>Nome Completo *</label>
-        <input type="text" id="nome" required>
-      </div>
-      <div class="form-group">
-        <label>Telefone *</label>
-        <input type="tel" id="telefone" required>
-      </div>
-      <div class="form-group">
-        <label>Endereço de Entrega</label>
-        <textarea id="endereco" rows="2"></textarea>
-      </div>
-      <div class="form-group">
-        <label>Forma de Pagamento *</label>
-        <div class="pagamento-options">
-          <label><input type="radio" name="pagamento" value="Pix" required> Pix</label>
-          <label><input type="radio" name="pagamento" value="Cartão"> Cartão</label>
-          <label><input type="radio" name="pagamento" value="Dinheiro"> Dinheiro</label>
-        </div>
-      </div>
-      <div class="form-group">
-        <label>Observação</label>
-        <textarea id="obs" rows="2"></textarea>
-      </div>
-      <button type="submit" class="btn-enviar-pedido">Enviar Pedido no WhatsApp</button>
-    </form>
+    <h3 id="popup-titulo">Seu Carrinho</h3>
+    <div id="conteudo-popup"></div>
   </div>
 </div>
 
 <script>
 const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/11fxpMU9iX_U01qyMOAUfmcNTbw68ZZhg17dIM69frmI/export?format=csv";
-const NUMERO_WHATSAPP = "5551995702188"; // NUMERO DA KEROLYN PRA TESTE
+const NUMERO_WHATSAPP = "555199995702188"; // NUMERO CORRIGIDO DA KEROLYN
 let todasCategorias = [];
-let produtoAtual = {};
+let carrinho = [];
 
-function parseCSV(text) {
+function parseCSV(text) { /*...igual ao anterior... */
   const rows = [];
   let row = [], cell = '', inQuotes = false;
   for (let i = 0; i < text.length; i++) {
@@ -241,7 +224,6 @@ function converterLinkDrive(link) {
 
 function formatarPreco(valor) {
   if(!valor) return "0,00";
-  valor = valor.replace(/"/g, '').trim();
   valor = valor.replace(/[^0-9.,]/g, '');
   if(valor.includes('.') && valor.includes(',')) {
     valor = valor.replace(/\./g, '').replace(',', '.');
@@ -251,7 +233,7 @@ function formatarPreco(valor) {
   }
   const num = parseFloat(valor);
   if(isNaN(num)) return "0,00";
-  return num.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+  return num.toLocaleString('pt-BR', {minimumFractionDigits: 2});
 }
 
 function precoParaNum(valor) {
@@ -279,7 +261,7 @@ function criarCard(produto, isPremium = false) {
           <div class="info">
             <h3>${produto['Nome']}</h3>
             <p class="preco" data-preco="${precoNum}">R$ ${preco}</p>
-            <button class="btn-pedir" onclick="event.stopPropagation(); abrirPopup('${produto['Nome']}', ${precoNum})">Pedir no WhatsApp</button>
+            <button class="btn-pedir" onclick="event.stopPropagation(); adicionarAoCarrinho('${produto['Nome']}', ${precoNum})">Adicionar ao Carrinho</button>
           </div>
         </div>
         <div class="card-face card-back">
@@ -313,61 +295,136 @@ function preencherProdutos(dados) {
   });
 }
 
-// ===== FUNÇÕES DO POPUP =====
-function abrirPopup(nome, preco) {
-  produtoAtual = { nome, preco };
-  document.getElementById('popup-produto-nome').innerText = nome;
-  document.getElementById('qtd').value = 1;
-  atualizarTotal();
-  document.getElementById('form-pedido').reset();
+// ===== FUNÇÕES DO CARRINHO =====
+function adicionarAoCarrinho(nome, preco) {
+  const itemExistente = carrinho.find(item => item.nome === nome);
+  if(itemExistente) {
+    itemExistente.qtd++;
+  } else {
+    carrinho.push({ nome, preco, qtd: 1 });
+  }
+  atualizarBadge();
+  abrirPopupAdicionado(nome);
+}
+
+function atualizarBadge() {
+  const totalItens = carrinho.reduce((soma, item) => soma + item.qtd, 0);
+  const badge = document.getElementById('badge-qtd');
+  badge.innerText = totalItens;
+  badge.style.display = totalItens > 0? 'flex' : 'none';
+}
+
+function abrirPopupAdicionado(nome) {
+  document.getElementById('popup-titulo').innerText = "Produto Adicionado!";
+  document.getElementById('conteudo-popup').innerHTML = `
+    <p style="text-align:center; margin-bottom:20px;"><b>${nome}</b> foi adicionado ao carrinho.</p>
+    <div class="btn-botoes">
+      <button class="btn-azul btn-secundario" onclick="fecharPopup()">Continuar Comprando</button>
+      <button class="btn-azul" onclick="abrirCarrinho()">Finalizar Pedido</button>
+    </div>
+  `;
   document.getElementById('popup-overlay').classList.add('active');
+}
+
+function abrirCarrinho() {
+  if(carrinho.length === 0) {
+    alert("Seu carrinho está vazio!");
+    return;
+  }
+  document.getElementById('popup-titulo').innerText = "Finalizar Pedido";
+  let htmlItens = '<div class="lista-carrinho">';
+  let totalGeral = 0;
+  carrinho.forEach((item, index) => {
+    const subtotal = item.preco * item.qtd;
+    totalGeral += subtotal;
+    htmlItens += `
+      <div class="item-carrinho">
+        <span>${item.qtd}x ${item.nome}</span>
+        <span>R$ ${subtotal.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</span>
+      </div>
+    `;
+  });
+  htmlItens += `</div><div class="total-geral">Total: R$ ${totalGeral.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</div>`;
+
+  htmlItens += `
+    <form id="form-pedido">
+      <div class="form-group">
+        <label>Nome Completo <span class="req">*</span></label>
+        <input type="text" id="nome" required>
+      </div>
+      <div class="form-group">
+        <label>Telefone <span class="req">*</span></label>
+        <input type="tel" id="telefone" required>
+      </div>
+      <div class="form-group">
+        <label>Endereço de Entrega <span class="req">*</span></label>
+        <textarea id="endereco" rows="2" required></textarea>
+      </div>
+      <div class="form-group">
+        <label>Forma de Pagamento <span class="req">*</span></label>
+        <div class="pagamento-options">
+          <label><input type="radio" name="pagamento" value="Pix" required> Pix</label>
+          <label><input type="radio" name="pagamento" value="Cartão"> Cartão</label>
+          <label><input type="radio" name="pagamento" value="Dinheiro"> Dinheiro</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Observação</label>
+        <textarea id="obs" rows="2"></textarea>
+      </div>
+      <button type="submit" class="btn-azul">Enviar Pedido no WhatsApp</button>
+    </form>
+  `;
+  document.getElementById('conteudo-popup').innerHTML = htmlItens;
+  document.getElementById('popup-overlay').classList.add('active');
+
+  document.getElementById('form-pedido').addEventListener('submit', enviarPedido);
+}
+
+function enviarPedido(e) {
+  e.preventDefault();
+  const nome = document.getElementById('nome').value;
+  const telefone = document.getElementById('telefone').value;
+  const endereco = document.getElementById('endereco').value;
+  const pagamento = document.querySelector('input[name="pagamento"]:checked').value;
+  const obs = document.getElementById('obs').value;
+  let totalGeral = 0;
+
+  let listaProdutos = '';
+  carrinho.forEach((item, index) => {
+    const subtotal = item.preco * item.qtd;
+    totalGeral += subtotal;
+    listaProdutos += `${index + 1}. ${item.nome} - Qtd: ${item.qtd} - R$ ${subtotal.toLocaleString('pt-BR', {minimumFractionDigits: 2})}\n`;
+  });
+
+  const mensagem = `🛒 *NOVO PEDIDO*
+
+${listaProdutos}
+*TOTAL GERAL: R$ ${totalGeral.toLocaleString('pt-BR', {minimumFractionDigits: 2})}*
+
+👤 *NOME:* ${nome}
+📱 *TEL:* ${telefone}
+📍 *ENDEREÇO:* ${endereco}
+💳 *PAGAMENTO:* ${pagamento}
+📝 *OBS:* ${obs}`;
+
+  const url = `https://wa.me/${NUMERO_WHATSAPP}?text=${encodeURIComponent(mensagem)}`;
+  window.open(url, '_blank');
+  carrinho = [];
+  atualizarBadge();
+  fecharPopup();
 }
 
 function fecharPopup() {
   document.getElementById('popup-overlay').classList.remove('active');
 }
 
-function mudarQtd(valor) {
-  let qtd = parseInt(document.getElementById('qtd').value);
-  qtd += valor;
-  if(qtd < 1) qtd = 1;
-  document.getElementById('qtd').value = qtd;
-  atualizarTotal();
-}
-
-function atualizarTotal() {
-  const qtd = parseInt(document.getElementById('qtd').value);
-  const total = produtoAtual.preco * qtd;
-  document.getElementById('total-box').innerText = `Total: R$ ${total.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
-}
-
-document.getElementById('form-pedido').addEventListener('submit', function(e) {
-  e.preventDefault();
-  const qtd = document.getElementById('qtd').value;
-  const nome = document.getElementById('nome').value;
-  const telefone = document.getElementById('telefone').value;
-  const endereco = document.getElementById('endereco').value;
-  const pagamento = document.querySelector('input[name="pagamento"]:checked').value;
-  const obs = document.getElementById('obs').value;
-  const total = produtoAtual.preco * qtd;
-
-  const mensagem = `🛒 NOVO PEDIDO
-
-PRODUTO: ${produtoAtual.nome}
-QTD: ${qtd} UN
-VALOR UNIT: R$ ${produtoAtual.preco.toLocaleString('pt-BR', {minimumFractionDigits: 2})}
-TOTAL: R$ ${total.toLocaleString('pt-BR', {minimumFractionDigits: 2})}
-
-NOME: ${nome}
-TEL: ${telefone}
-ENDEREÇO: ${endereco}
-PAGAMENTO: ${pagamento}
-OBS: ${obs}`;
-
-  const url = `https://wa.me/${NUMERO_WHATSAPP}?text=${encodeURIComponent(mensagem)}`;
-  window.open(url, '_blank');
-  fecharPopup();
-});
+// ===== DRAG DO BOTÃO CARRINHO =====
+let isDragging = false, offsetX, offsetY;
+const btnCarrinho = document.getElementById('btn-carrinho');
+btnCarrinho.addEventListener('mousedown', e => { isDragging = true; offsetX = e.clientX - btnCarrinho.offsetLeft; offsetY = e.clientY - btnCarrinho.offsetTop; });
+document.addEventListener('mousemove', e => { if(isDragging) { btnCarrinho.style.left = e.clientX - offsetX + 'px'; btnCarrinho.style.right = 'auto'; btnCarrinho.style.bottom = 'auto'; } });
+document.addEventListener('mouseup', () => { isDragging = false; });
 
 async function carregarProdutos() {
   try {
