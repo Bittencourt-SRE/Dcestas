@@ -121,8 +121,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial; backgr
   box-shadow: 0 10px 30px rgba(0,0,0,0.3); position: relative; max-height: 81vh; overflow-y: auto; /* -10% na vertical */
 }
 .popup-close { position: absolute; top: 10px; right: 15px; background: none; border: none; font-size: 28px; color: #6b3e26; cursor: pointer; }
-.popup-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-.popup-header h3 { color: #6b3e26; margin: 0; }
+.popup-header { text-align: center; margin-bottom: 15px; font-size: 22px; color: #6b3e26; font-weight: 700; }
 .lista-carrinho { margin-bottom: 20px; max-height: 250px; overflow-y: auto; }
 .item-carrinho { display: flex; flex-direction:column; padding: 12px; border-bottom: 1px solid #f5e9da; font-size: 14px; }
 .total-geral { text-align: right; font-size: 20px; font-weight: bold; color: #2a9d8f; margin: 15px 0; }
@@ -139,7 +138,6 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial; backgr
 .btn-secundario { background: #ccc; color: #333; }
 .btn-qtd { width:28px;height:28px;border:1px solid #4169E1;border-radius:6px;background:#fff;cursor:pointer;font-weight:bold;color:#4169E1; }
 .btn-qtd:hover { background:#4169E1; color:#fff; }
-.btn-lixo { background:none;border:none;font-size:20px;cursor:pointer;color:#e63946; }
 </style>
 </head>
 <body>
@@ -193,9 +191,10 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial; backgr
 
 <script>
 const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/11fxpMU9iX_U01qyMOAUfmcNTbw68ZZhg17dIM69frmI/export?format=csv";
-const NUMERO_WHATSAPP = "555199995702188";
+const NUMERO_WHATSAPP = "5551995702188"; // NUMERO ATUALIZADO
 let todasCategorias = [];
 let carrinho = [];
+let primeiraVezAdicionando = true; // Controle do pop-up
 
 function parseCSV(text) {
   const rows = [];
@@ -304,33 +303,27 @@ function adicionarAoCarrinho(nome, preco) {
   if(itemExistente) {
     itemExistente.qtd++;
   } else {
-    carrinho.push({ nome, preco, qtd: 1 }); // Cria nova linha se for produto diferente
+    carrinho.push({ nome, preco, qtd: 1 });
   }
   atualizarBadge();
-  abrirPopupAdicionado(nome);
+
+  if(primeiraVezAdicionando) {
+    abrirPopupAdicionado(nome);
+    primeiraVezAdicionando = false;
+  }
 }
 
 function alterarQtd(index, delta) {
   carrinho[index].qtd += delta;
   if(carrinho[index].qtd <= 0) {
     carrinho.splice(index, 1);
+    if(carrinho.length === 0) { // Se ficou vazio, fecha o carrinho
+      fecharPopup();
+      return;
+    }
   }
   atualizarBadge();
   abrirCarrinho();
-}
-
-function removerItem(index) {
-  carrinho.splice(index, 1); // Remove todas as unidades daquele produto
-  atualizarBadge();
-  abrirCarrinho();
-}
-
-function esvaziarCarrinho() {
-  if(confirm("Tem certeza que deseja esvaziar o carrinho?")) {
-    carrinho = [];
-    atualizarBadge();
-    fecharPopup();
-  }
 }
 
 function atualizarBadge() {
@@ -359,11 +352,7 @@ function abrirCarrinho() {
   }
 
   let htmlItens = `
-    <div class="popup-header">
-      <button onclick="esvaziarCarrinho()" class="btn-lixo" title="Esvaziar Carrinho">🗑️</button>
-      <h3>Seu Carrinho</h3>
-      <span style="width:24px"></span>
-    </div>
+    <div class="popup-header">🛒 Seu Carrinho 🛒</div>
     <div class="lista-carrinho">
   `;
   let totalGeral = 0;
@@ -373,10 +362,7 @@ function abrirCarrinho() {
     totalGeral += subtotal;
     htmlItens += `
       <div class="item-carrinho">
-        <div style="display:flex; justify-content:space-between; align-items:center;">
-          <span style="font-weight:600;">${item.nome}</span>
-          <button onclick="removerItem(${index})" class="btn-lixo" title="Remover Produto">🗑️</button>
-        </div>
+        <span style="font-weight:600;">${item.nome}</span>
         <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
           <div style="display:flex; align-items:center; gap:8px;">
             <button onclick="alterarQtd(${index}, -1)" class="btn-qtd">-</button>
@@ -441,21 +427,23 @@ function enviarPedido(e) {
     listaProdutos += `${index + 1}. ${item.nome} - Qtd: ${item.qtd} - R$ ${subtotal.toLocaleString('pt-BR', {minimumFractionDigits: 2})}\n`;
   });
 
-  const mensagem = `🛒 *NOVO PEDIDO*
+  // MENSAGEM SEM EMOJI
+  const mensagem = `NOVO PEDIDO
 
 ${listaProdutos}
-*TOTAL GERAL: R$ ${totalGeral.toLocaleString('pt-BR', {minimumFractionDigits: 2})}*
+TOTAL GERAL: R$ ${totalGeral.toLocaleString('pt-BR', {minimumFractionDigits: 2})}
 
-👤 *NOME:* ${nome}
-📱 *TEL:* ${telefone}
-📍 *ENDEREÇO:* ${endereco}
-💳 *PAGAMENTO:* ${pagamento}
-📝 *OBS:* ${obs}`;
+NOME: ${nome}
+TEL: ${telefone}
+ENDERECO: ${endereco}
+PAGAMENTO: ${pagamento}
+OBS: ${obs}`;
 
   const url = `https://wa.me/${NUMERO_WHATSAPP}?text=${encodeURIComponent(mensagem)}`;
   window.open(url, '_blank');
   carrinho = [];
   atualizarBadge();
+  primeiraVezAdicionando = true; // Reseta pra próxima compra
   fecharPopup();
 }
 
