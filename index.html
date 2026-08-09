@@ -37,7 +37,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial; backgr
 
 .card-wrapper { perspective: 1000px; position: relative; }
 .card {
-  position: relative; width: 100%; height: auto;
+  position: relative; width: 100%; height: 100%;
   transition: transform 0.6s; transform-style: preserve-3d; cursor: pointer;
 }
 .card.flipped { transform: rotateY(180deg); }
@@ -70,7 +70,20 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial; backgr
   z-index: 10; pointer-events: none; box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
-.card-front img { width: 100%; height: 220px; object-fit: cover; background: #eee; display: block; }
+/* ===== ARRUmei AQUI ===== */
+.img-container {
+  width: 100%;
+  aspect-ratio: 4 / 3; /* trava a proporção da foto */
+  overflow: hidden;
+  background: #eee;
+}
+.card-front img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* preenche e corta sem deformar */
+  display: block;
+}
+
 .card-front.info {
   padding: 16px 15px 20px 15px;
   display: flex;
@@ -78,8 +91,9 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial; backgr
   gap: 10px;
   align-items: center;
   justify-content: center;
+  flex: 1; /* faz a parte de baixo crescer igual */
 }
-.card-front h3 { font-size: 17px; color: #333; font-weight: 700; margin: 0; }
+.card-front h3 { font-size: 17px; color: #333; font-weight: 700; margin: 0; min-height: 40px; } /* altura mínima pra alinhar */
 .preco { font-weight:bold; color:#2a9d8f; font-size:24px; margin: 0; }
 .btn-pedir { background: #4169E1; color: #fff; padding: 14px 20px; border-radius: 12px; text-decoration: none; font-weight: bold; width: 90%; margin: 0 auto; display: block; font-size: 16px; border: none; cursor: pointer; }
 
@@ -259,7 +273,9 @@ function criarCard(produto, isPremium = false) {
     <div class="card-wrapper">
       <div class="card ${isPremium? 'premium' : ''}" onclick="this.classList.toggle('flipped')">
         <div class="card-face card-front">
-          <img src="${img}" alt="${produto['Nome']}" onerror="this.src='https://via.placeholder.com/260x220?text=Sem+Imagem'">
+          <div class="img-container"> <!-- WRAPPER NOVO -->
+            <img src="${img}" alt="${produto['Nome']}" onerror="this.src='https://via.placeholder.com/260x220?text=Sem+Imagem'">
+          </div>
           <div class="info">
             <h3>${produto['Nome']}</h3>
             <p class="preco" data-preco="${precoNum}">R$ ${preco}</p>
